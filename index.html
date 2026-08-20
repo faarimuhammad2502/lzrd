@@ -4,794 +4,111 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nurhaliza Sofia Yunus - Portfolio</title>
-    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <!-- Lucide Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
-                    },
-                    colors: {
-                        stone: {
-                            750: '#322f2c',
-                            850: '#201e1c',
-                            900: '#1c1917',
-                        },
-                        amber: {
-                            700: '#b45309',
-                        }
-                    }
-                }
-            }
-        }
-    </script>
     <style>
         .modal-active { overflow: hidden; }
-        .tab-btn.active {
-            background-color: #1c1917;
-            color: #ffffff;
-            border-color: #1c1917;
-        }
-        .dark .tab-btn.active {
-            background-color: #f5f5f4;
-            color: #1c1917;
-            border-color: #f5f5f4;
-        }
-        .bg-subtle-texture {
-            background-image: radial-gradient(#d6d3d1 0.8px, transparent 0.8px);
-            background-size: 16px 16px;
-        }
-        .dark .bg-subtle-texture {
-            background-image: radial-gradient(#44403c 0.8px, transparent 0.8px);
-            background-size: 16px 16px;
-        }
-        .bg-gradient-texture {
-            background: linear-gradient(135deg, rgba(245,245,244,0.9) 0%, rgba(231,229,228,0.5) 100%);
-        }
-        .dark .bg-gradient-texture {
-            background: linear-gradient(135deg, rgba(28,25,23,0.9) 0%, rgba(44,40,36,0.5) 100%);
-        }
-        
-        .photo-crop-mask {
-            clip-path: inset(2.5% 2.5% 0 2.5% round 1rem 1rem 0 0);
-        }
+        /* Modal Drag & Zoom */
+        #modal-img-container { cursor: grab; overflow: auto; position: relative; scrollbar-width: thin; max-height: 60vh; }
+        #modal-img-container:active { cursor: grabbing; }
+        #modal-img { transition: transform 0.2s ease; transform-origin: 0 0; display: block; }
     </style>
 </head>
-<body class="bg-stone-50 dark:bg-stone-900 text-stone-800 dark:text-stone-100 font-sans antialiased selection:bg-stone-800 selection:text-white dark:selection:bg-stone-200 dark:selection:text-stone-900 relative bg-subtle-texture transition-colors duration-300">
+<body class="bg-stone-50 text-stone-900 font-sans">
 
-    <!-- Toast Notification -->
-    <div id="toast" class="fixed bottom-5 right-5 bg-stone-900 dark:bg-stone-100 text-white dark:text-stone-900 text-xs px-4 py-3 rounded-xl shadow-2xl flex items-center gap-2 z-50 hidden transition-all">
-        <i data-lucide="check-circle" class="w-4 h-4 text-emerald-400 dark:text-emerald-600"></i>
-        <span id="toast-message">Teks berhasil disalin!</span>
-    </div>
-
-    <!-- Header / Navbar -->
-    <header class="fixed top-0 left-0 right-0 bg-stone-50/90 dark:bg-stone-900/90 backdrop-blur-md z-40 border-b border-stone-200/80 dark:border-stone-800 transition-colors duration-300">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-20">
-                <a href="#" class="text-xl font-bold tracking-tight text-stone-900 dark:text-white flex items-center gap-2">
-                    <span class="w-2.5 h-2.5 rounded-full bg-amber-700 inline-block"></span>
-                    NURHALIZA<span class="text-amber-700">.</span>
-                </a>
-                <nav class="hidden md:flex space-x-8 text-sm font-semibold text-stone-600 dark:text-stone-300">
-                    <a href="#about" class="hover:text-stone-900 dark:hover:text-white transition-colors">Tentang</a>
-                    <a href="#experience" class="hover:text-stone-900 dark:hover:text-white transition-colors">Pengalaman</a>
-                    <a href="#works" class="hover:text-stone-900 dark:hover:text-white transition-colors">Karya & Portofolio</a>
-                    <a href="#skills" class="hover:text-stone-900 dark:hover:text-white transition-colors">Keahlian</a>
-                    <a href="#contact" class="hover:text-stone-900 dark:hover:text-white transition-colors">Kontak</a>
-                </nav>
-                <div class="flex items-center gap-3">
-                    <button onclick="toggleDarkMode()" class="p-2.5 rounded-lg border border-stone-300 dark:border-stone-700 text-stone-700 dark:text-stone-200 hover:bg-stone-200 dark:hover:bg-stone-800 transition-all" title="Ubah Mode Tampilan">
-                        <i id="theme-icon-sun" data-lucide="sun" class="w-4 h-4 hidden"></i>
-                        <i id="theme-icon-moon" data-lucide="moon" class="w-4 h-4"></i>
-                    </button>
-                    <a href="https://wa.me/6281294430304" target="_blank" class="inline-flex items-center justify-center gap-2 px-5 py-2.5 text-sm font-semibold text-white bg-stone-900 dark:bg-stone-100 dark:text-stone-900 rounded-lg hover:bg-stone-800 dark:hover:bg-white transition-all shadow-sm">
-                        <i data-lucide="message-circle" class="w-4 h-4"></i> Chat WhatsApp
-                    </a>
-                </div>
-            </div>
+    <!-- Header -->
+    <header class="fixed w-full bg-white/90 backdrop-blur z-40 border-b border-stone-100">
+        <div class="max-w-6xl mx-auto px-4 h-20 flex items-center justify-between">
+            <a href="#" class="text-xl font-extrabold tracking-tighter">NURHALIZA<span class="text-amber-700">.</span></a>
+            <nav class="hidden md:flex gap-8 text-sm font-semibold">
+                <a href="#about" class="hover:text-amber-700">Tentang</a>
+                <a href="#experience" class="hover:text-amber-700">Pengalaman</a>
+                <a href="#works" class="hover:text-amber-700">Karya</a>
+                <a href="#skills" class="hover:text-amber-700">Keahlian</a>
+            </nav>
         </div>
     </header>
 
-    <!-- Hero Section -->
-    <section id="about" class="relative pt-32 pb-20 md:pt-40 md:pb-28 border-b border-stone-200/80 dark:border-stone-800 overflow-hidden bg-gradient-texture transition-colors duration-300">
-        <div class="absolute inset-0 z-0 opacity-[0.05] bg-cover bg-center mix-blend-multiply pointer-events-none" 
-             style="background-image: url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=1920');">
-        </div>
-        
-        <div class="absolute -top-24 -left-24 w-96 h-96 bg-amber-200/30 dark:bg-amber-700/10 rounded-full blur-3xl pointer-events-none"></div>
-        <div class="absolute -bottom-24 -right-24 w-96 h-96 bg-stone-300/40 dark:bg-stone-800/40 rounded-full blur-3xl pointer-events-none"></div>
+    <!-- Hero & Main Content -->
+    <main class="pt-32 pb-20 max-w-6xl mx-auto px-4 space-y-20">
+        <section id="about">
+            <h1 class="text-5xl font-extrabold mb-6 tracking-tight">Mengelola Keuangan dengan Presisi.</h1>
+            <p class="text-lg text-stone-600 max-w-2xl">Selamat datang! Saya Nurhaliza Sofia Yunus — Profesional Staff Keuangan sejak 2019 dan desainer kreatif yang berdedikasi.</p>
+        </section>
 
-        <div class="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 md:grid-cols-12 gap-12 items-center">
-                <div class="md:col-span-7 space-y-6">
-                    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-stone-200/80 dark:bg-stone-800 border border-stone-300/60 dark:border-stone-700 text-stone-800 dark:text-stone-200 text-xs font-bold tracking-wider uppercase shadow-2xs">
-                        <i data-lucide="building-2" class="w-3.5 h-3.5 text-amber-700"></i> Finance, Tax & Creative Professional
-                    </div>
-                    
-                    <h1 class="text-4xl sm:text-5xl font-extrabold text-stone-900 dark:text-white tracking-tight leading-tight">
-                        Mengelola Keuangan dengan <span class="relative inline-block text-amber-700">Presisi<span class="absolute bottom-1 left-0 w-full h-1 bg-amber-700/20 rounded-full"></span></span>, Menyampaikan Ide dengan <span class="text-stone-900 dark:text-white">Kreativitas.</span>
-                    </h1>
-                    
-                    <p class="text-base sm:text-lg text-stone-600 dark:text-stone-300 leading-relaxed">
-                        Selamat datang! Saya <strong>Nurhaliza Sofia Yunus</strong> — Profesional Staff Keuangan dengan pengalaman sejak 2019 dalam pencatatan transaksi, serta penulis & desainer kreatif yang berdedikasi.
-                    </p>
-                    
-                    <div class="p-4 bg-white/80 dark:bg-stone-850/80 backdrop-blur-xs border-l-4 border-stone-800 dark:border-amber-700 rounded-r-xl shadow-xs italic text-stone-700 dark:text-stone-300 text-sm">
-                        "Gaya desain, dan tulisan saya adalah cerminan kepribadian saya, atas pemikiran serta imajinasi saya yang spontan."
-                    </div>
-
-                    <div class="pt-2 flex flex-wrap items-center gap-3">
-                        <a href="images/CV-Nurhaliza.pdf" download="CV-Nurhaliza.pdf" target="_blank" class="px-5 py-3 bg-amber-700 hover:bg-amber-800 text-white font-semibold rounded-lg shadow-sm transition-all flex items-center gap-2 text-sm">
-                            <i data-lucide="download" class="w-4 h-4"></i> Download CV
-                        </a>
-                        
-                        <a href="#works" class="px-5 py-3 bg-stone-900 dark:bg-stone-100 hover:bg-stone-800 dark:hover:bg-white text-white dark:text-stone-900 font-semibold rounded-lg shadow-sm transition-all flex items-center gap-2 text-sm">
-                            <i data-lucide="folder-git-2" class="w-4 h-4"></i> Lihat Karya
-                        </a>
-                        
-                        <a href="https://wa.me/6281294430304" target="_blank" class="px-5 py-3 bg-emerald-700 hover:bg-emerald-800 text-white font-semibold rounded-lg transition-all flex items-center gap-2 text-sm shadow-xs">
-                            <i data-lucide="phone-call" class="w-4 h-4"></i> WhatsApp
-                        </a>
-                        
-                        <a href="https://www.instagram.com/lizardsy/" target="_blank" class="px-4 py-3 bg-white dark:bg-stone-800 border border-stone-300 dark:border-stone-700 hover:border-pink-500 text-stone-800 dark:text-stone-200 font-semibold rounded-lg transition-all flex items-center gap-2 text-sm shadow-xs group">
-                            <svg class="w-4 h-4 text-pink-600 group-hover:scale-110 transition-transform" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
-                            </svg>
-                            <span>@lizardsy</span>
-                        </a>
-                    </div>
-                </div>
-
-                <div class="md:col-span-5 flex justify-center relative">
-                    <div class="absolute inset-0 bg-stone-300/50 dark:bg-stone-800/50 rounded-2xl transform rotate-3 scale-95 z-0"></div>
-                    
-                    <div class="relative z-10 w-64 h-80 sm:w-72 sm:h-96 rounded-2xl overflow-hidden shadow-2xl bg-[#a80f14]">
-                        <img src="images/profile.jpg" alt="Nurhaliza Sofia Yunus" class="w-full h-full object-cover object-center photo-crop-mask scale-105" onerror="this.src='https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=800'">
-                    </div>
+        <!-- Section Karya (Trigger Modal) -->
+        <section id="works">
+            <h2 class="text-3xl font-bold mb-10 text-center">Hasil Karya & Portofolio</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="p-6 bg-white rounded-2xl shadow-sm border border-stone-200">
+                    <h3 class="font-bold text-lg mb-2">Pawon Kanaya - Sinom Luntas</h3>
+                    <button onclick="openModal('Pawon Kanaya', 'Detail proses desain logo', 'Proses UMKM Sidoarjo', 'images/logo-pawon.jpg')" class="bg-stone-900 text-white px-4 py-2 rounded-lg text-sm hover:bg-amber-700">Lihat Detail</button>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+    </main>
 
-    <!-- Key Statistics -->
-    <section class="py-10 bg-white/90 dark:bg-stone-850/90 border-b border-stone-200/80 dark:border-stone-800 relative z-20 transition-colors duration-300 shadow-xs">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-                
-                <div class="p-5 rounded-2xl bg-stone-50/80 dark:bg-stone-800/80 border border-stone-200/80 dark:border-stone-700/80 hover:border-amber-700/50 hover:bg-white dark:hover:bg-stone-750 transition-all duration-300 hover:shadow-md group flex items-center gap-4">
-                    <div class="p-3.5 rounded-xl bg-amber-100 dark:bg-amber-950/60 text-amber-700 dark:text-amber-400 group-hover:scale-110 transition-transform">
-                        <i data-lucide="calculator" class="w-6 h-6"></i>
-                    </div>
-                    <div>
-                        <p class="text-xl sm:text-2xl font-extrabold text-stone-900 dark:text-white group-hover:text-amber-700 dark:group-hover:text-amber-400 transition-colors">2019 - Skrg</p>
-                        <p class="text-xs text-stone-500 dark:text-stone-400 font-semibold mt-0.5">Finance & Tax Admin</p>
-                    </div>
-                </div>
-
-                <div class="p-5 rounded-2xl bg-stone-50/80 dark:bg-stone-800/80 border border-stone-200/80 dark:border-stone-700/80 hover:border-amber-700/50 hover:bg-white dark:hover:bg-stone-750 transition-all duration-300 hover:shadow-md group flex items-center gap-4">
-                    <div class="p-3.5 rounded-xl bg-red-100 dark:bg-red-950/60 text-red-600 dark:text-red-400 group-hover:scale-110 transition-transform">
-                        <i data-lucide="tv" class="w-6 h-6"></i>
-                    </div>
-                    <div>
-                        <p class="text-xl sm:text-2xl font-extrabold text-stone-900 dark:text-white group-hover:text-amber-700 dark:group-hover:text-amber-400 transition-colors">GTV & CNN</p>
-                        <p class="text-xs text-stone-500 dark:text-stone-400 font-semibold mt-0.5">Liputan Media Nasional</p>
-                    </div>
-                </div>
-
-                <div class="p-5 rounded-2xl bg-stone-50/80 dark:bg-stone-800/80 border border-stone-200/80 dark:border-stone-700/80 hover:border-amber-700/50 hover:bg-white dark:hover:bg-stone-750 transition-all duration-300 hover:shadow-md group flex items-center gap-4">
-                    <div class="p-3.5 rounded-xl bg-blue-100 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400 group-hover:scale-110 transition-transform">
-                        <i data-lucide="pen-tool" class="w-6 h-6"></i>
-                    </div>
-                    <div>
-                        <p class="text-xl sm:text-2xl font-extrabold text-stone-900 dark:text-white group-hover:text-amber-700 dark:group-hover:text-amber-400 transition-colors">2018 - Skrg</p>
-                        <p class="text-xs text-stone-500 dark:text-stone-400 font-semibold mt-0.5">IDN Community Writer</p>
-                    </div>
-                </div>
-
-                <div class="p-5 rounded-2xl bg-stone-50/80 dark:bg-stone-800/80 border border-stone-200/80 dark:border-stone-700/80 hover:border-amber-700/50 hover:bg-white dark:hover:bg-stone-750 transition-all duration-300 hover:shadow-md group flex items-center gap-4">
-                    <div class="p-3.5 rounded-xl bg-emerald-100 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 group-hover:scale-110 transition-transform">
-                        <i data-lucide="globe" class="w-6 h-6"></i>
-                    </div>
-                    <div>
-                        <p class="text-xl sm:text-2xl font-extrabold text-stone-900 dark:text-white group-hover:text-amber-700 dark:group-hover:text-amber-400 transition-colors">KOCIS 2023</p>
-                        <p class="text-xs text-stone-500 dark:text-stone-400 font-semibold mt-0.5">Wartawan Kehormatan Korea</p>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-    <!-- Section: Experience -->
-    <section id="experience" class="py-20 border-b border-stone-200/80 dark:border-stone-800 relative transition-colors duration-300">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center max-w-2xl mx-auto mb-16">
-                <span class="text-xs font-bold text-amber-700 dark:text-amber-500 tracking-widest uppercase">Karir & Edukasi</span>
-                <h2 class="text-3xl font-extrabold text-stone-900 dark:text-white tracking-tight mt-1">Pengalaman & Latar Belakang</h2>
-                <p class="text-stone-600 dark:text-stone-300 mt-2 text-sm">Rekam jejak profesional, aktivitas kepemudaan, dan pendidikan akademis.</p>
-            </div>
-
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
-                <div class="space-y-8">
-                    <h3 class="text-lg font-bold text-stone-900 dark:text-white flex items-center gap-2.5">
-                        <span class="p-2 bg-stone-900 dark:bg-stone-100 text-white dark:text-stone-900 rounded-lg shadow-xs"><i data-lucide="briefcase" class="w-4 h-4"></i></span> 
-                        Pengalaman Kerja Profesional
-                    </h3>
-                    
-                    <div class="relative pl-6 border-l-2 border-stone-300 dark:border-stone-700 space-y-10">
-                        <div class="relative group">
-                            <div class="absolute -left-[31px] top-1 w-4 h-4 rounded-full bg-amber-700 ring-4 ring-white dark:ring-stone-900 shadow-xs group-hover:scale-125 transition-transform"></div>
-                            
-                            <div class="bg-white/90 dark:bg-stone-800/90 p-5 rounded-2xl border border-stone-200/80 dark:border-stone-700 shadow-xs hover:shadow-md transition-all">
-                                <span class="inline-block px-2.5 py-0.5 bg-amber-50 dark:bg-amber-950/50 text-amber-700 dark:text-amber-400 text-xs font-bold rounded-md mb-1 border border-amber-200 dark:border-amber-800">
-                                    Nov 2019 – Sekarang
-                                </span>
-                                <h4 class="text-base font-bold text-stone-900 dark:text-white">Finance Staff</h4>
-                                <p class="text-xs font-semibold text-stone-500 dark:text-stone-400 mb-3">PT. Dewenei Trans Indonesia</p>
-                                
-                                <ul class="text-xs sm:text-sm text-stone-600 dark:text-stone-300 space-y-1.5 list-disc list-inside">
-                                    <li>Mencatat transaksi keuangan bank masuk & keluar sesuai COA.</li>
-                                    <li>Pengelolaan dokumen perpajakan PPh-23 e-bupot Coretax.</li>
-                                    <li>Administrasi pengarsipan dokumen dan penawaran harga customer.</li>
-                                    <li>Memastikan akurasi data keuangan dan kelengkapan dokumen.</li>
-                                </ul>
-                            </div>
-                        </div>
-
-                        <div class="relative group">
-                            <div class="absolute -left-[31px] top-1 w-4 h-4 rounded-full bg-stone-800 dark:bg-stone-200 ring-4 ring-white dark:ring-stone-900 shadow-xs group-hover:scale-125 transition-transform"></div>
-                            
-                            <div class="bg-white/90 dark:bg-stone-800/90 p-5 rounded-2xl border border-stone-200/80 dark:border-stone-700 shadow-xs hover:shadow-md transition-all">
-                                <span class="inline-block px-2.5 py-0.5 bg-stone-100 dark:bg-stone-700 text-stone-700 dark:text-stone-200 text-xs font-bold rounded-md mb-1 border border-stone-200 dark:border-stone-600">
-                                    Des 2018 – Sekarang
-                                </span>
-                                <h4 class="text-base font-bold text-stone-900 dark:text-white">Writer / Contributor</h4>
-                                <p class="text-xs font-semibold text-stone-500 dark:text-stone-400 mb-3">IDN Community Writer</p>
-                                
-                                <ul class="text-xs sm:text-sm text-stone-600 dark:text-stone-300 space-y-1.5 list-disc list-inside">
-                                    <li>Riset, observasi, dan wawancara untuk memperoleh informasi faktual.</li>
-                                    <li>Menulis artikel dan berita informatif, populer, serta edukatif.</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="pt-4">
-                        <h3 class="text-lg font-bold text-stone-900 dark:text-white mb-6 flex items-center gap-2.5">
-                            <span class="p-2 bg-amber-700 text-white rounded-lg shadow-xs"><i data-lucide="heart-handshake" class="w-4 h-4"></i></span> 
-                            Pekerjaan Sukarela & Organisasi
-                        </h3>
-                        <div class="space-y-3">
-                            <div class="bg-white/90 dark:bg-stone-800/90 p-4 rounded-xl border border-stone-200/80 dark:border-stone-700 text-xs sm:text-sm shadow-xs">
-                                <div class="flex justify-between font-bold text-stone-900 dark:text-white">
-                                    <span>Volunteer Ticketing Jazz Traffic Festival</span>
-                                    <span class="text-stone-500 dark:text-stone-400 font-normal">14-15 Sep 2019</span>
-                                </div>
-                                <p class="text-stone-500 dark:text-stone-400 text-xs mt-0.5">Radio Suara Surabaya 100fm</p>
-                            </div>
-                            <div class="bg-white/90 dark:bg-stone-800/90 p-4 rounded-xl border border-stone-200/80 dark:border-stone-700 text-xs sm:text-sm shadow-xs">
-                                <div class="flex justify-between font-bold text-stone-900 dark:text-white">
-                                    <span>Marketing and Branding Volunteer</span>
-                                    <span class="text-stone-500 dark:text-stone-400 font-normal">Jun 2018 – Jul 2019</span>
-                                </div>
-                                <p class="text-stone-500 dark:text-stone-400 text-xs mt-0.5">World Merit Indonesia</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="space-y-8">
-                    <div>
-                        <h3 class="text-lg font-bold text-stone-900 dark:text-white mb-6 flex items-center gap-2.5">
-                            <span class="p-2 bg-stone-900 dark:bg-stone-100 text-white dark:text-stone-900 rounded-lg shadow-xs"><i data-lucide="graduation-cap" class="w-4 h-4"></i></span> 
-                            Latar Belakang Pendidikan
-                        </h3>
-                        <div class="bg-white/90 dark:bg-stone-800/90 p-6 rounded-2xl border border-stone-200/80 dark:border-stone-700 shadow-xs space-y-4">
-                            <div class="border-b border-stone-100 dark:border-stone-700 pb-3">
-                                <span class="text-xs font-bold text-amber-700 dark:text-amber-400 bg-amber-50 dark:bg-amber-950/50 px-2 py-0.5 rounded">2016 – 2020</span>
-                                <h4 class="text-base font-bold text-stone-900 dark:text-white mt-1">STIE Mahardhika Surabaya</h4>
-                                <p class="text-xs text-stone-600 dark:text-stone-300">S1 Marketing / Pemasaran</p>
-                            </div>
-                            <div class="border-b border-stone-100 dark:border-stone-700 pb-3">
-                                <span class="text-xs font-bold text-stone-500 dark:text-stone-400 bg-stone-100 dark:bg-stone-700 px-2 py-0.5 rounded">2013 – 2016</span>
-                                <h4 class="text-base font-bold text-stone-900 dark:text-white mt-1">SMA Angkasa 1 Halim P.K</h4>
-                                <p class="text-xs text-stone-600 dark:text-stone-300">MIA / IPA</p>
-                            </div>
-                            <div class="border-b border-stone-100 dark:border-stone-700 pb-3">
-                                <span class="text-xs font-bold text-stone-500 dark:text-stone-400 bg-stone-100 dark:bg-stone-700 px-2 py-0.5 rounded">2010 – 2013</span>
-                                <h4 class="text-base font-bold text-stone-900 dark:text-white mt-1">SMPN 259 Jakarta Timur</h4>
-                            </div>
-                            <div>
-                                <span class="text-xs font-bold text-stone-500 dark:text-stone-400 bg-stone-100 dark:bg-stone-700 px-2 py-0.5 rounded">2004 – 2010</span>
-                                <h4 class="text-base font-bold text-stone-900 dark:text-white mt-1">SDN 05 Pagi Jakarta Timur</h4>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div>
-                        <h3 class="text-lg font-bold text-stone-900 dark:text-white mb-6 flex items-center gap-2.5">
-                            <span class="p-2 bg-amber-700 text-white rounded-lg shadow-xs"><i data-lucide="award" class="w-4 h-4"></i></span> 
-                            Sertifikasi Interaktif (Klik Untuk Pratinjau)
-                        </h3>
-                        <div class="bg-white/90 dark:bg-stone-800/90 p-6 rounded-2xl border border-stone-200/80 dark:border-stone-700 shadow-xs space-y-4 text-xs sm:text-sm">
-                            <div onclick="openModal('Pengangkatan Wartawan Kehormatan KOCIS', 'Sertifikat Pengangkatan Resmi Wartawan Kehormatan Tahun 2023 dari Kementerian Kebudayaan, Olahraga, dan Pariwisata Korea (19 Mei 2023).', 'Penerbit: KOCIS / Korean Culture and Information Service (Direktur Kim Jangho)', 'images/cert-kocis.png')" class="flex items-start gap-3 p-3 rounded-xl bg-stone-50 dark:bg-stone-750 hover:bg-amber-50/60 dark:hover:bg-stone-700 border border-stone-200 dark:border-stone-700 cursor-pointer transition-all group">
-                                <i data-lucide="badge-check" class="w-5 h-5 text-amber-700 dark:text-amber-400 mt-0.5 flex-shrink-0 group-hover:scale-110 transition-transform"></i>
-                                <div class="flex-grow">
-                                    <h4 class="font-bold text-stone-900 dark:text-white group-hover:text-amber-700 dark:group-hover:text-amber-400 transition-colors flex items-center justify-between">
-                                        <span>Wartawan Kehormatan KOCIS</span>
-                                        <i data-lucide="eye" class="w-3.5 h-3.5 text-stone-400 group-hover:text-amber-700"></i>
-                                    </h4>
-                                    <p class="text-stone-500 dark:text-stone-400 text-xs mt-0.5">Kementerian Kebudayaan, Olahraga, dan Pariwisata Korea (19 Mei 2023)[cite: 1]</p>
-                                </div>
-                            </div>
-
-                            <div onclick="openModal('IDN Times Writing Academy Certificate', 'Tanda Tamat Belajar Program IDN Times Writing Academy Batch 1 (6 Feb – 6 Mar 2021) dan dinyatakan LULUS dalam penulisan jurnalistik digital.', 'Penerbit: IDN Times Community, IDN Media (Pemimpin Redaksi Uni Lubis)', 'images/cert-idn.png')" class="flex items-start gap-3 p-3 rounded-xl bg-stone-50 dark:bg-stone-750 hover:bg-amber-50/60 dark:hover:bg-stone-700 border border-stone-200 dark:border-stone-700 cursor-pointer transition-all group">
-                                <i data-lucide="badge-check" class="w-5 h-5 text-amber-700 dark:text-amber-400 mt-0.5 flex-shrink-0 group-hover:scale-110 transition-transform"></i>
-                                <div class="flex-grow">
-                                    <h4 class="font-bold text-stone-900 dark:text-white group-hover:text-amber-700 dark:group-hover:text-amber-400 transition-colors flex items-center justify-between">
-                                        <span>IDN Times Writing Academy Batch 1</span>
-                                        <i data-lucide="eye" class="w-3.5 h-3.5 text-stone-400 group-hover:text-amber-700"></i>
-                                    </h4>
-                                    <p class="text-stone-500 dark:text-stone-400 text-xs mt-0.5">IDN Times Community, IDN Media (6 Maret 2021)[cite: 2]</p>
-                                </div>
-                            </div>
-
-                            <div onclick="openModal('Volunteer Ticketing Jazz Traffic Festival', 'Sertifikat Penghargaan Keikutsertaan Aktif sebagai Volunteer Ticketing dalam ajang Jazz Traffic Festival 2019.', 'Penerbit: Radio Suara Surabaya 100 FM (Chairman Errol Jonathans)', 'images/cert-jazztraffic.png')" class="flex items-start gap-3 p-3 rounded-xl bg-stone-50 dark:bg-stone-750 hover:bg-amber-50/60 dark:hover:bg-stone-700 border border-stone-200 dark:border-stone-700 cursor-pointer transition-all group">
-                                <i data-lucide="badge-check" class="w-5 h-5 text-amber-700 dark:text-amber-400 mt-0.5 flex-shrink-0 group-hover:scale-110 transition-transform"></i>
-                                <div class="flex-grow">
-                                    <h4 class="font-bold text-stone-900 dark:text-white group-hover:text-amber-700 dark:group-hover:text-amber-400 transition-colors flex items-center justify-between">
-                                        <span>Volunteer Ticketing Jazz Traffic Festival</span>
-                                        <i data-lucide="eye" class="w-3.5 h-3.5 text-stone-400 group-hover:text-amber-700"></i>
-                                    </h4>
-                                    <p class="text-stone-500 dark:text-stone-400 text-xs mt-0.5">Suara Surabaya FM 100 (14-15 September 2019)[cite: 3]</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Interactive Section: KARYA & PORTOFOLIO -->
-    <section id="works" class="py-20 bg-white/70 dark:bg-stone-850/70 border-b border-stone-200/80 dark:border-stone-800 transition-colors duration-300">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center max-w-2xl mx-auto mb-12">
-                <span class="text-xs font-bold text-amber-700 dark:text-amber-400 tracking-widest uppercase">Galeri Portofolio</span>
-                <h2 class="text-3xl font-extrabold text-stone-900 dark:text-white tracking-tight mt-1">Hasil Karya & Proyek Kreatif</h2>
-                <p class="text-stone-600 dark:text-stone-300 mt-2 text-sm">Pilih kategori di bawah dan klik karya untuk melihat detail beserta gambarnya.</p>
-            </div>
-
-            <div class="flex flex-wrap items-center justify-center gap-2 mb-10">
-                <button onclick="switchTab('logo')" id="tab-logo" class="tab-btn active px-5 py-2.5 text-xs sm:text-sm font-bold rounded-lg border border-stone-300 dark:border-stone-700 transition-all flex items-center gap-2">
-                    <i data-lucide="palette" class="w-4 h-4"></i> Desain Logo & Branding UMKM
-                </button>
-                <button onclick="switchTab('poster')" id="tab-poster" class="tab-btn px-5 py-2.5 text-xs sm:text-sm font-bold rounded-lg border border-stone-300 dark:border-stone-700 text-stone-700 dark:text-stone-300 hover:border-stone-900 dark:hover:border-white transition-all flex items-center gap-2">
-                    <i data-lucide="image" class="w-4 h-4"></i> Poster & Karya Seni
-                </button>
-                <button onclick="switchTab('writing')" id="tab-writing" class="tab-btn px-5 py-2.5 text-xs sm:text-sm font-bold rounded-lg border border-stone-300 dark:border-stone-700 text-stone-700 dark:text-stone-300 hover:border-stone-900 dark:hover:border-white transition-all flex items-center gap-2">
-                    <i data-lucide="file-text" class="w-4 h-4"></i> Artikel IDN Media
-                </button>
-                <button onclick="switchTab('fiction')" id="tab-fiction" class="tab-btn px-5 py-2.5 text-xs sm:text-sm font-bold rounded-lg border border-stone-300 dark:border-stone-700 text-stone-700 dark:text-stone-300 hover:border-stone-900 dark:hover:border-white transition-all flex items-center gap-2">
-                    <i data-lucide="book-open" class="w-4 h-4"></i> Cerita & Karya Tulis (Wattpad)
-                </button>
-            </div>
-
-            <!-- TAB CONTENT 1 -->
-            <div id="content-logo" class="tab-content grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div class="bg-stone-50/90 dark:bg-stone-800/90 rounded-2xl border border-stone-200 dark:border-stone-700 overflow-hidden flex flex-col justify-between hover:shadow-md transition-all">
-                    <div class="p-4 bg-white dark:bg-stone-900 border-b border-stone-200 dark:border-stone-700 overflow-hidden">
-                        <img src="images/logo-pawon.jpg" alt="Proses Desain Logo Pawon Kanaya" class="w-full h-auto object-contain max-h-56 mx-auto rounded-lg" onerror="this.style.display='none'">
-                    </div>
-                    <div class="p-6 space-y-4">
-                        <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-md bg-amber-100 dark:bg-amber-950/50 text-amber-700 dark:text-amber-400 text-xs font-bold">
-                            <i data-lucide="award" class="w-3.5 h-3.5"></i> Tahap Sketsa hingga Hak Paten
-                        </div>
-                        <h3 class="text-xl font-bold text-stone-900 dark:text-white">Pawon Kanaya - Sinom Luntas</h3>
-                        <p class="text-xs sm:text-sm text-stone-600 dark:text-stone-300 leading-relaxed">
-                            Alur pembuatan logo UMKM mulai dari sketsa pensil awal, transformasi karakter animasi bertema herbal, hingga desain akhir label kemasan "Sinom Luntas" yang terdaftar hak paten.
-                        </p>
-                        <button onclick="openModal('Pawon Kanaya - Sinom Luntas', 'Proses lengkap dari sketch awal, karakter animasi, kemasan label produk, hingga berhasil dipatenkan.', 'Kombinasi Kunyit, Asem, Luntas, Gula Batu | PIRT No: Pawon Kanaya Sidoarjo', 'images/logo-pawon.jpg')" class="w-full py-2.5 bg-stone-900 dark:bg-stone-100 hover:bg-stone-800 dark:hover:bg-white text-white dark:text-stone-900 font-semibold text-xs rounded-lg transition-all flex items-center justify-center gap-2">
-                            <i data-lucide="eye" class="w-4 h-4"></i> Lihat Detail Gambar Proses Logo
-                        </button>
-                    </div>
-                </div>
-
-                <div class="bg-stone-50/90 dark:bg-stone-800/90 rounded-2xl border border-stone-200 dark:border-stone-700 overflow-hidden flex flex-col justify-between hover:shadow-md transition-all">
-                    <div class="p-4 bg-white dark:bg-stone-900 border-b border-stone-200 dark:border-stone-700 overflow-hidden">
-                        <img src="images/logo-mieluntas.jpg" alt="Desain Logo & Liputan TV Mie Luntas" class="w-full h-auto object-contain max-h-56 mx-auto rounded-lg" onerror="this.style.display='none'">
-                    </div>
-                    <div class="p-6 space-y-4">
-                        <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-md bg-stone-200 dark:bg-stone-700 text-stone-900 dark:text-white text-xs font-bold">
-                            <i data-lucide="tv" class="w-3.5 h-3.5 text-amber-700 dark:text-amber-400"></i> Liputan GTV & CNN Indonesia
-                        </div>
-                        <h3 class="text-xl font-bold text-stone-900 dark:text-white">Mie Luntas & Omah Sinom</h3>
-                        <p class="text-xs sm:text-sm text-stone-600 dark:text-stone-300 leading-relaxed">
-                            Pengembangan karakter animasi chef untuk produk kuliner sehat "Mie Ayam Penunjang Imun". Brand identity ini terbukti sukses dan mendapatkan liputan media nasional di GTV dan CNN Indonesia.
-                        </p>
-                        <button onclick="openModal('Mie Luntas - Omah Sinom', 'Karakter animasi chef dengan elemen daun beluntas, digunakan sebagai branding utama kuliner mie ayam penunjang imun yang diliput stasiun TV nasional.', 'Varian Kuliner Sehat UMKM Sidoarjo', 'images/logo-mieluntas.jpg')" class="w-full py-2.5 bg-stone-900 dark:bg-stone-100 hover:bg-stone-800 dark:hover:bg-white text-white dark:text-stone-900 font-semibold text-xs rounded-lg transition-all flex items-center justify-center gap-2">
-                            <i data-lucide="eye" class="w-4 h-4"></i> Lihat Detail Gambar Logo & TV
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- TAB CONTENT 2 -->
-            <div id="content-poster" class="tab-content hidden grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="bg-stone-50/90 dark:bg-stone-800/90 rounded-2xl border border-stone-200 dark:border-stone-700 overflow-hidden space-y-3 p-5 hover:shadow-md transition-all">
-                    <h3 class="text-lg font-bold text-stone-900 dark:text-white">Radio MARI (Mahana Raid)</h3>
-                    <p class="text-xs text-stone-500 dark:text-stone-400 font-semibold">Perlombaan Karya Seni 1</p>
-                    <p class="text-xs sm:text-sm text-stone-600 dark:text-stone-300">Ilustrasi poster kreatif bertema penyiaran radio dengan kutipan "Udara dengan warna kita, sejuta cerita 'tuk terisi".</p>
-                    <button onclick="openModal('Poster Radio MARI', 'Ilustrasi poster bertema komunikasi radio dan keberagaman pesan positif untuk ajang Perlombaan Karya Seni.', 'Karya Seni Poster Penyiaran Radio', 'images/poster-mari.jpg')" class="w-full py-2 bg-stone-900 dark:bg-stone-100 hover:bg-stone-800 dark:hover:bg-white text-white dark:text-stone-900 font-semibold text-xs rounded-lg transition-all">
-                        Detail & Gambar Poster
-                    </button>
-                </div>
-
-                <div class="bg-stone-50/90 dark:bg-stone-800/90 rounded-2xl border border-stone-200 dark:border-stone-700 overflow-hidden space-y-3 p-5 hover:shadow-md transition-all">
-                    <h3 class="text-lg font-bold text-stone-900 dark:text-white">Pameran Seni Budaya</h3>
-                    <p class="text-xs text-stone-500 dark:text-stone-400 font-semibold">Perlombaan Karya Seni 2</p>
-                    <p class="text-xs sm:text-sm text-stone-600 dark:text-stone-300">Ilustrasi simbolis bermotif wayang, Monas, simbol-simbol keagamaan, dan flora-fauna Indonesia.</p>
-                    <button onclick="openModal('Poster Pameran Seni', 'Karya poster bertema filosofi kebudayaan, toleransi, dan keberagaman Indonesia.', 'Karya Seni Poster Kebudayaan', 'images/poster-pameran.jpg')" class="w-full py-2 bg-stone-900 dark:bg-stone-100 hover:bg-stone-800 dark:hover:bg-white text-white dark:text-stone-900 font-semibold text-xs rounded-lg transition-all">
-                        Detail & Gambar Poster
-                    </button>
-                </div>
-
-                <div class="bg-stone-50/90 dark:bg-stone-800/90 rounded-2xl border border-stone-200 dark:border-stone-700 overflow-hidden space-y-3 p-5 hover:shadow-md transition-all">
-                    <h3 class="text-lg font-bold text-stone-900 dark:text-white">Life Mapping Illustration</h3>
-                    <p class="text-xs text-stone-500 dark:text-stone-400 font-semibold">Personal Visual Mapping</p>
-                    <p class="text-xs sm:text-sm text-stone-600 dark:text-stone-300">Visualisasi kreatif berupa pemetaan target hidup, pendidikan S2, karir, keluarga, dan impian.</p>
-                    <button onclick="openModal('Life Mapping Illustration', 'Ilustrasi visual buatan tangan yang memetakan jalur impian, akademis, dan pengembangan diri.', 'Digital & Hand-drawn Art Mapping', 'images/life-mapping.jpg')" class="w-full py-2 bg-stone-900 dark:bg-stone-100 hover:bg-stone-800 dark:hover:bg-white text-white dark:text-stone-900 font-semibold text-xs rounded-lg transition-all">
-                        Detail & Gambar Mapping
-                    </button>
-                </div>
-            </div>
-
-            <!-- TAB CONTENT 3 -->
-            <div id="content-writing" class="tab-content hidden">
-                <div class="bg-stone-50/90 dark:bg-stone-800/90 p-6 rounded-2xl border border-stone-200 dark:border-stone-700 space-y-6 hover:shadow-md transition-all">
-                    <div class="flex flex-col sm:flex-row justify-between sm:items-center gap-4">
-                        <div>
-                            <span class="text-[10px] font-bold px-2 py-0.5 bg-amber-100 dark:bg-amber-950/50 text-amber-700 dark:text-amber-400 rounded">IDN TIMES COMMUNITY</span>
-                            <h3 class="text-xl font-bold text-stone-900 dark:text-white mt-1">Galeri Artikel IDN Media</h3>
-                            <p class="text-xs text-stone-600 dark:text-stone-300">Kumpulan publikasi artikel populer meliputi ulasan tren entertainment, k-pop, hingga edukasi.</p>
-                        </div>
-                        <a href="https://www.idntimes.com/nurhaliza-sofia-yunus" target="_blank" class="inline-flex items-center justify-center gap-1.5 px-4 py-2 text-xs font-bold text-white bg-amber-700 hover:bg-amber-800 rounded-lg transition-all shadow-xs">
-                            Kunjungi Profil IDN Times <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
-                        </a>
-                    </div>
-
-                    <div class="rounded-xl overflow-hidden border border-stone-200 dark:border-stone-700 bg-white dark:bg-stone-900">
-                        <img src="images/idn-articles.jpg" alt="Artikel IDN Media" class="w-full h-auto object-contain max-h-[500px] mx-auto" onerror="this.style.display='none'">
-                    </div>
-
-                    <div class="flex justify-end">
-                        <button onclick="openModal('Artikel IDN Media', 'Galeri publikasi penulisan artikel populer Nurhaliza Sofia Yunus di platform IDN Times Community.', 'Akses Artikel Lengkap: www.idntimes.com/nurhaliza-sofia-yunus', 'images/idn-articles.jpg')" class="px-5 py-2.5 bg-stone-900 dark:bg-stone-100 hover:bg-stone-800 dark:hover:bg-white text-white dark:text-stone-900 font-semibold text-xs rounded-lg transition-all flex items-center gap-2">
-                            <i data-lucide="eye" class="w-4 h-4"></i> Perbesar Gambar Artikel
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- TAB CONTENT 4 -->
-            <div id="content-fiction" class="tab-content hidden">
-                <div class="bg-stone-50/90 dark:bg-stone-800/90 p-6 rounded-2xl border border-stone-200 dark:border-stone-700 space-y-6 hover:shadow-md transition-all">
-                    <div class="flex flex-col sm:flex-row justify-between sm:items-center gap-4">
-                        <div>
-                            <span class="text-[10px] font-bold px-2 py-0.5 bg-amber-100 dark:bg-amber-950/50 text-amber-700 dark:text-amber-400 rounded">WATTPAD & PROSA</span>
-                            <h3 class="text-xl font-bold text-stone-900 dark:text-white mt-1">Galeri Karya Tulis & Storytelling</h3>
-                            <p class="text-xs text-stone-600 dark:text-stone-300">Karya cerita fiksi "Hy!Coo-KING Chef", kisah prosa "Semenanjung Minahasa, Amadi", esai, dan refleksi sosial.</p>
-                        </div>
-                        <a href="https://www.wattpad.com/user/goodziLIZArd" target="_blank" class="inline-flex items-center justify-center gap-1.5 px-4 py-2 text-xs font-bold text-white bg-amber-700 hover:bg-amber-800 rounded-lg transition-all shadow-xs">
-                            Buka Profil Wattpad (goodziLIZArd) <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
-                        </a>
-                    </div>
-
-                    <div class="rounded-xl overflow-hidden border border-stone-200 dark:border-stone-700 bg-white dark:bg-stone-900">
-                        <img src="images/wattpad-stories.jpg" alt="Karya Menulis Cerita" class="w-full h-auto object-contain max-h-[500px] mx-auto" onerror="this.style.display='none'">
-                    </div>
-
-                    <div class="flex justify-end">
-                        <button onclick="openModal('Menulis Cerita & Prosa', 'Kumpulan sampul karya tulis Wattpad, prosa, dan esai kreatif karya Nurhaliza Sofia Yunus (goodziLIZArd).', 'Profil Penulis Wattpad: www.wattpad.com/user/goodziLIZArd', 'images/wattpad-stories.jpg')" class="px-5 py-2.5 bg-stone-900 dark:bg-stone-100 hover:bg-stone-800 dark:hover:bg-white text-white dark:text-stone-900 font-semibold text-xs rounded-lg transition-all flex items-center gap-2">
-                            <i data-lucide="eye" class="w-4 h-4"></i> Perbesar Gambar Karya Tulis
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </section>
-
-    <!-- Skills Section -->
-    <section id="skills" class="py-20 border-b border-stone-200/80 dark:border-stone-800 bg-stone-100/50 dark:bg-stone-900/50 transition-colors duration-300">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center max-w-2xl mx-auto mb-16">
-                <span class="text-xs font-bold text-amber-700 dark:text-amber-400 tracking-widest uppercase">Kompetensi Inti</span>
-                <h2 class="text-3xl font-extrabold text-stone-900 dark:text-white tracking-tight mt-1">Keterampilan & Keahlian Utama</h2>
-                <p class="text-stone-600 dark:text-stone-300 mt-2 text-sm">Kemampuan teknis di bidang administrasi keuangan, perpajakan, dan kreasi konten.</p>
-            </div>
-
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                <div class="bg-white/90 dark:bg-stone-800/90 backdrop-blur-xs p-8 rounded-3xl border border-stone-200/90 dark:border-stone-700 shadow-sm space-y-6">
-                    <div class="flex items-center gap-3 border-b border-stone-100 dark:border-stone-700 pb-4">
-                        <div class="p-3 bg-amber-700/10 dark:bg-amber-400/10 text-amber-700 dark:text-amber-400 rounded-xl">
-                            <i data-lucide="calculator" class="w-6 h-6"></i>
-                        </div>
-                        <div>
-                            <h3 class="text-lg font-bold text-stone-900 dark:text-white">Finance & Administration</h3>
-                            <p class="text-xs text-stone-500 dark:text-stone-400">Keahlian Olah Data, Perpajakan & Transaksi</p>
-                        </div>
-                    </div>
-
-                    <div class="space-y-4">
-                        <div class="p-3.5 bg-stone-50 dark:bg-stone-750 rounded-xl border border-stone-200 dark:border-stone-700 hover:border-amber-700/50 transition-all">
-                            <div class="flex justify-between items-center mb-1">
-                                <span class="text-xs font-bold text-stone-800 dark:text-stone-100 flex items-center gap-2">
-                                    <i data-lucide="file-check-2" class="w-4 h-4 text-amber-700 dark:text-amber-400"></i> Tax Documentation (PPh-23 & e-bupot Coretax)
-                                </span>
-                                <span class="text-[10px] font-bold text-amber-700 dark:text-amber-400 bg-amber-50 dark:bg-amber-950/60 px-2 py-0.5 rounded border border-amber-200 dark:border-amber-800">Advanced</span>
-                            </div>
-                            <div class="w-full bg-stone-200 dark:bg-stone-700 h-1.5 rounded-full overflow-hidden">
-                                <div class="bg-amber-700 dark:bg-amber-500 h-full rounded-full" style="width: 92%"></div>
-                            </div>
-                        </div>
-
-                        <div class="p-3.5 bg-stone-50 dark:bg-stone-750 rounded-xl border border-stone-200 dark:border-stone-700 hover:border-amber-700/50 transition-all">
-                            <div class="flex justify-between items-center mb-1">
-                                <span class="text-xs font-bold text-stone-800 dark:text-stone-100 flex items-center gap-2">
-                                    <i data-lucide="receipt" class="w-4 h-4 text-amber-700 dark:text-amber-400"></i> Finance Transaction Recording (COA)
-                                </span>
-                                <span class="text-[10px] font-bold text-amber-700 dark:text-amber-400 bg-amber-50 dark:bg-amber-950/60 px-2 py-0.5 rounded border border-amber-200 dark:border-amber-800">Advanced</span>
-                            </div>
-                            <div class="w-full bg-stone-200 dark:bg-stone-700 h-1.5 rounded-full overflow-hidden">
-                                <div class="bg-amber-700 dark:bg-amber-500 h-full rounded-full" style="width: 90%"></div>
-                            </div>
-                        </div>
-
-                        <div class="p-3.5 bg-stone-50 dark:bg-stone-750 rounded-xl border border-stone-200 dark:border-stone-700 hover:border-amber-700/50 transition-all">
-                            <div class="flex justify-between items-center mb-1">
-                                <span class="text-xs font-bold text-stone-800 dark:text-stone-100 flex items-center gap-2">
-                                    <i data-lucide="file-spreadsheet" class="w-4 h-4 text-amber-700 dark:text-amber-400"></i> Microsoft Excel & Word Office
-                                </span>
-                                <span class="text-[10px] font-bold text-amber-700 dark:text-amber-400 bg-amber-50 dark:bg-amber-950/60 px-2 py-0.5 rounded border border-amber-200 dark:border-amber-800">Proficient</span>
-                            </div>
-                            <div class="w-full bg-stone-200 dark:bg-stone-700 h-1.5 rounded-full overflow-hidden">
-                                <div class="bg-amber-700 dark:bg-amber-500 h-full rounded-full" style="width: 88%"></div>
-                            </div>
-                        </div>
-
-                        <div class="p-3.5 bg-stone-50 dark:bg-stone-750 rounded-xl border border-stone-200 dark:border-stone-700 hover:border-amber-700/50 transition-all">
-                            <div class="flex justify-between items-center mb-1">
-                                <span class="text-xs font-bold text-stone-800 dark:text-stone-100 flex items-center gap-2">
-                                    <i data-lucide="file-text" class="w-4 h-4 text-amber-700 dark:text-amber-400"></i> Penawaran Harga & Pengarsipan Dokumen
-                                </span>
-                                <span class="text-[10px] font-bold text-amber-700 dark:text-amber-400 bg-amber-50 dark:bg-amber-950/60 px-2 py-0.5 rounded border border-amber-200 dark:border-amber-800">Advanced</span>
-                            </div>
-                            <div class="w-full bg-stone-200 dark:bg-stone-700 h-1.5 rounded-full overflow-hidden">
-                                <div class="bg-amber-700 dark:bg-amber-500 h-full rounded-full" style="width: 95%"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="bg-white/90 dark:bg-stone-800/90 backdrop-blur-xs p-8 rounded-3xl border border-stone-200/90 dark:border-stone-700 shadow-sm space-y-6">
-                    <div class="flex items-center gap-3 border-b border-stone-100 dark:border-stone-700 pb-4">
-                        <div class="p-3 bg-stone-900/10 dark:bg-white/10 text-stone-900 dark:text-white rounded-xl">
-                            <i data-lucide="feather" class="w-6 h-6"></i>
-                        </div>
-                        <div>
-                            <h3 class="text-lg font-bold text-stone-900 dark:text-white">Creative & Writing</h3>
-                            <p class="text-xs text-stone-500 dark:text-stone-400">Penulisan Artikel, Branding Logo & Poster</p>
-                        </div>
-                    </div>
-
-                    <div class="space-y-4">
-                        <div class="p-3.5 bg-stone-50 dark:bg-stone-750 rounded-xl border border-stone-200 dark:border-stone-700 hover:border-stone-900 dark:hover:border-white transition-all">
-                            <div class="flex justify-between items-center mb-1">
-                                <span class="text-xs font-bold text-stone-800 dark:text-stone-100 flex items-center gap-2">
-                                    <i data-lucide="pen-tool" class="w-4 h-4 text-stone-900 dark:text-white"></i> Content Writing & Journalism
-                                </span>
-                                <span class="text-[10px] font-bold text-stone-800 dark:text-stone-100 bg-stone-200 dark:bg-stone-700 px-2 py-0.5 rounded border border-stone-300 dark:border-stone-600">Advanced</span>
-                            </div>
-                            <div class="w-full bg-stone-200 dark:bg-stone-700 h-1.5 rounded-full overflow-hidden">
-                                <div class="bg-stone-900 dark:bg-white h-full rounded-full" style="width: 94%"></div>
-                            </div>
-                        </div>
-
-                        <div class="p-3.5 bg-stone-50 dark:bg-stone-750 rounded-xl border border-stone-200 dark:border-stone-700 hover:border-stone-900 dark:hover:border-white transition-all">
-                            <div class="flex justify-between items-center mb-1">
-                                <span class="text-xs font-bold text-stone-800 dark:text-stone-100 flex items-center gap-2">
-                                    <i data-lucide="palette" class="w-4 h-4 text-stone-900 dark:text-white"></i> Logo Design & Branding UMKM
-                                </span>
-                                <span class="text-[10px] font-bold text-stone-800 dark:text-stone-100 bg-stone-200 dark:bg-stone-700 px-2 py-0.5 rounded border border-stone-300 dark:border-stone-600">Proficient</span>
-                            </div>
-                            <div class="w-full bg-stone-200 dark:bg-stone-700 h-1.5 rounded-full overflow-hidden">
-                                <div class="bg-stone-900 dark:bg-white h-full rounded-full" style="width: 86%"></div>
-                            </div>
-                        </div>
-
-                        <div class="p-3.5 bg-stone-50 dark:bg-stone-750 rounded-xl border border-stone-200 dark:border-stone-700 hover:border-stone-900 dark:hover:border-white transition-all">
-                            <div class="flex justify-between items-center mb-1">
-                                <span class="text-xs font-bold text-stone-800 dark:text-stone-100 flex items-center gap-2">
-                                    <i data-lucide="layout" class="w-4 h-4 text-stone-900 dark:text-white"></i> Poster & Creative Art Design
-                                </span>
-                                <span class="text-[10px] font-bold text-stone-800 dark:text-stone-100 bg-stone-200 dark:bg-stone-700 px-2 py-0.5 rounded border border-stone-300 dark:border-stone-600">Proficient</span>
-                            </div>
-                            <div class="w-full bg-stone-200 dark:bg-stone-700 h-1.5 rounded-full overflow-hidden">
-                                <div class="bg-stone-900 dark:bg-white h-full rounded-full" style="width: 85%"></div>
-                            </div>
-                        </div>
-
-                        <div class="p-3.5 bg-stone-50 dark:bg-stone-750 rounded-xl border border-stone-200 dark:border-stone-700 hover:border-stone-900 dark:hover:border-white transition-all">
-                            <div class="flex justify-between items-center mb-1">
-                                <span class="text-xs font-bold text-stone-800 dark:text-stone-100 flex items-center gap-2">
-                                    <i data-lucide="book-open" class="w-4 h-4 text-stone-900 dark:text-white"></i> Creative Fiction Storytelling
-                                </span>
-                                <span class="text-[10px] font-bold text-stone-800 dark:text-stone-100 bg-stone-200 dark:bg-stone-700 px-2 py-0.5 rounded border border-stone-300 dark:border-stone-600">Advanced</span>
-                            </div>
-                            <div class="w-full bg-stone-200 dark:bg-stone-700 h-1.5 rounded-full overflow-hidden">
-                                <div class="bg-stone-900 dark:bg-white h-full rounded-full" style="width: 90%"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer id="contact" class="bg-stone-850 dark:bg-stone-950 text-white pt-12 pb-8 border-t border-stone-700 dark:border-stone-800">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 pb-8 border-b border-stone-700/60 text-xs sm:text-sm">
-                <div class="space-y-2 md:col-span-1">
-                    <h2 class="text-lg font-bold tracking-tight text-white">NURHALIZA.</h2>
-                    <p class="text-stone-400 text-xs leading-relaxed">
-                        Finance & Creative Professional. Berpengalaman dalam administrasi keuangan, perpajakan, dan karya penulisan.
-                    </p>
-                </div>
-                
-                <div class="space-y-1">
-                    <p class="font-bold text-amber-500 uppercase tracking-wider text-[11px]">Lokasi Alamat</p>
-                    <p class="text-stone-300">Cipayung, Jakarta Timur 13890</p>
-                    <p class="text-stone-400 text-[11px]">Jemurwonosari, Surabaya 60237</p>
-                </div>
-                
-                <div class="space-y-1.5">
-                    <p class="font-bold text-amber-500 uppercase tracking-wider text-[11px]">Kontak Direct</p>
-                    <div class="flex items-center gap-2">
-                        <a href="https://wa.me/6281294430304" target="_blank" class="text-stone-300 hover:text-white transition-colors">
-                            WA: +62 812-9443-0304
-                        </a>
-                        <button onclick="copyToClipboard('+6281294430304', 'Nomor WhatsApp')" class="text-stone-500 hover:text-amber-500 transition-colors" title="Salin Nomor WA">
-                            <i data-lucide="copy" class="w-3.5 h-3.5"></i>
-                        </button>
-                    </div>
-                    <div class="flex items-center gap-2">
-                        <a href="mailto:jobs.nurhalizasofiayunus@gmail.com" class="text-stone-300 hover:text-white transition-colors truncate max-w-[180px]">
-                            jobs.nurhalizasofiayunus@gmail.com
-                        </a>
-                        <button onclick="copyToClipboard('jobs.nurhalizasofiayunus@gmail.com', 'Alamat Email')" class="text-stone-500 hover:text-amber-500 transition-colors" title="Salin Email">
-                            <i data-lucide="copy" class="w-3.5 h-3.5"></i>
-                        </button>
-                    </div>
-                </div>
-
-                <div class="space-y-1">
-                    <p class="font-bold text-amber-500 uppercase tracking-wider text-[11px]">Media Sosial</p>
-                    <a href="https://www.instagram.com/lizardsy/" target="_blank" class="inline-flex items-center gap-1.5 text-stone-300 hover:text-pink-400 transition-colors">
-                        <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
-                        Instagram @lizardsy
-                    </a>
-                </div>
-            </div>
+    <!-- Modal Interaktif -->
+    <div id="karya-modal" onclick="closeModalOnBackdrop(event)" class="fixed inset-0 bg-stone-900/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-4xl w-full p-6 shadow-2xl relative flex flex-col">
+            <button onclick="closeModal()" class="absolute top-4 right-4 p-2 bg-stone-100 rounded-full hover:bg-stone-200"><i data-lucide="x" class="w-5 h-5"></i></button>
+            <h3 id="modal-title" class="text-xl font-extrabold mb-4">Judul</h3>
             
-            <div class="pt-6 text-center text-xs text-stone-500">
-                <p>&copy; 2026 Nurhaliza Sofia Yunus. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
-
-    <!-- MODAL FOR PORTOFOLIO & SERTIFIKAT DETAILS -->
-    <div id="karya-modal" class="fixed inset-0 bg-stone-900/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
-        <div class="bg-white dark:bg-stone-850 rounded-2xl max-w-lg w-full p-6 shadow-2xl border border-stone-200 dark:border-stone-700 relative max-h-[90vh] overflow-y-auto transition-colors">
-            <button onclick="closeModal()" class="absolute top-4 right-4 text-stone-400 hover:text-stone-900 dark:hover:text-white">
-                <i data-lucide="x" class="w-5 h-5"></i>
-            </button>
-            <span class="text-[10px] font-bold uppercase tracking-wider text-amber-700 dark:text-amber-400 bg-stone-100 dark:bg-stone-800 px-2.5 py-1 rounded">Detail Dokumen</span>
-            <h3 id="modal-title" class="text-xl font-extrabold text-stone-900 dark:text-white mt-2">Judul Dokumen</h3>
-            
-            <div id="modal-img-container" class="mt-4 rounded-lg overflow-hidden bg-stone-100 dark:bg-stone-800 border border-stone-200 dark:border-stone-700 hidden">
-                <img id="modal-img" src="" alt="Pratinjau Dokumen" class="w-full h-auto object-contain max-h-64 mx-auto">
+            <!-- Kontrol Zoom -->
+            <div class="flex gap-2 mb-4">
+                <button onclick="changeZoom(0.2)" class="px-3 py-1 bg-stone-900 text-white rounded text-xs flex items-center gap-1"><i data-lucide="zoom-in" class="w-3 h-3"></i> Zoom In</button>
+                <button onclick="changeZoom(-0.2)" class="px-3 py-1 bg-stone-600 text-white rounded text-xs flex items-center gap-1"><i data-lucide="zoom-out" class="w-3 h-3"></i> Zoom Out</button>
             </div>
 
-            <p id="modal-desc" class="text-xs sm:text-sm text-stone-600 dark:text-stone-300 mt-3 leading-relaxed">Deskripsi akan muncul di sini.</p>
-            <div class="mt-4 p-3 bg-stone-50 dark:bg-stone-800 rounded-lg border border-stone-200 dark:border-stone-700">
-                <p class="text-xs font-bold text-stone-900 dark:text-white">Catatan Tambahan / Spesifikasi:</p>
-                <p id="modal-extra" class="text-xs text-stone-500 dark:text-stone-400 mt-1">Keterangan rinci.</p>
+            <!-- Kontainer Gambar -->
+            <div id="modal-img-container" class="flex-grow bg-stone-100 rounded-lg border border-stone-200">
+                <img id="modal-img" src="" alt="Detail Karya" class="min-w-full">
             </div>
-            <div class="mt-6 flex justify-end">
-                <button onclick="closeModal()" class="px-5 py-2 bg-stone-900 dark:bg-stone-100 text-white dark:text-stone-900 font-semibold text-xs rounded-lg">
-                    Tutup
-                </button>
-            </div>
+            <p class="text-xs mt-3 text-stone-500 italic">Tips: Klik kiri & seret (drag) gambar untuk menjelajah.</p>
         </div>
     </div>
 
-    <!-- JavaScript Functions -->
     <script>
         lucide.createIcons();
+        
+        // Logika Zoom & Drag
+        let zoomLevel = 1;
+        const img = document.getElementById('modal-img');
+        const container = document.getElementById('modal-img-container');
 
-        function switchTab(tabName) {
-            const contents = document.querySelectorAll('.tab-content');
-            contents.forEach(el => el.classList.add('hidden'));
+        function changeZoom(delta) { zoomLevel = Math.max(0.5, zoomLevel + delta); img.style.transform = `scale(${zoomLevel})`; }
+        
+        let isDown = false;
+        let startX, startY, scrollLeft, scrollTop;
 
-            const buttons = document.querySelectorAll('.tab-btn');
-            buttons.forEach(btn => btn.classList.remove('active'));
+        container.addEventListener('mousedown', (e) => {
+            isDown = true;
+            startX = e.pageX - container.offsetLeft;
+            startY = e.pageY - container.offsetTop;
+            scrollLeft = container.scrollLeft;
+            scrollTop = container.scrollTop;
+        });
+        container.addEventListener('mouseleave', () => isDown = false);
+        container.addEventListener('mouseup', () => isDown = false);
+        container.addEventListener('mousemove', (e) => {
+            if (!isDown) return;
+            e.preventDefault();
+            const x = e.pageX - container.offsetLeft;
+            const y = e.pageY - container.offsetTop;
+            container.scrollLeft = scrollLeft - (x - startX);
+            container.scrollTop = scrollTop - (y - startY);
+        });
 
-            document.getElementById('content-' + tabName).classList.remove('hidden');
-            document.getElementById('tab-' + tabName).classList.add('active');
-        }
-
-        function openModal(title, desc, extra, imgSrc = '') {
+        function openModal(title, desc, extra, imgSrc) {
             document.getElementById('modal-title').innerText = title;
-            document.getElementById('modal-desc').innerText = desc;
-            document.getElementById('modal-extra').innerText = extra;
-            
-            const imgContainer = document.getElementById('modal-img-container');
-            const imgElement = document.getElementById('modal-img');
-            
-            if(imgSrc) {
-                imgElement.src = imgSrc;
-                imgContainer.classList.remove('hidden');
-            } else {
-                imgContainer.classList.add('hidden');
-            }
-
+            img.src = imgSrc;
+            zoomLevel = 1; img.style.transform = `scale(1)`;
             document.getElementById('karya-modal').classList.remove('hidden');
             document.body.classList.add('modal-active');
         }
-
-        function closeModal() {
-            document.getElementById('karya-modal').classList.add('hidden');
-            document.body.classList.remove('modal-active');
-        }
-
-        function copyToClipboard(text, label) {
-            navigator.clipboard.writeText(text).then(() => {
-                const toast = document.getElementById('toast');
-                document.getElementById('toast-message').innerText = label + ' berhasil disalin!';
-                toast.classList.remove('hidden');
-                setTimeout(() => {
-                    toast.classList.add('hidden');
-                }, 2500);
-            });
-        }
-
-        function toggleDarkMode() {
-            const html = document.documentElement;
-            const sunIcon = document.getElementById('theme-icon-sun');
-            const moonIcon = document.getElementById('theme-icon-moon');
-            
-            if (html.classList.contains('dark')) {
-                html.classList.remove('dark');
-                sunIcon.classList.add('hidden');
-                moonIcon.classList.remove('hidden');
-            } else {
-                html.classList.add('dark');
-                sunIcon.classList.remove('hidden');
-                moonIcon.classList.add('hidden');
-            }
-        }
+        function closeModal() { document.getElementById('karya-modal').classList.add('hidden'); document.body.classList.remove('modal-active'); }
+        function closeModalOnBackdrop(e) { if(e.target.id === 'karya-modal') closeModal(); }
     </script>
 </body>
 </html>
