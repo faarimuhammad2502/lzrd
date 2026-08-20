@@ -9,7 +9,6 @@
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         .modal-active { overflow: hidden; }
-        /* Modal Drag & Zoom */
         #modal-img-container { cursor: grab; overflow: auto; position: relative; scrollbar-width: thin; max-height: 60vh; }
         #modal-img-container:active { cursor: grabbing; }
         #modal-img { transition: transform 0.2s ease; transform-origin: 0 0; display: block; }
@@ -17,7 +16,7 @@
 </head>
 <body class="bg-stone-50 text-stone-900 font-sans">
 
-    <!-- Header -->
+    <!-- Header (Sama seperti asli) -->
     <header class="fixed w-full bg-white/90 backdrop-blur z-40 border-b border-stone-100">
         <div class="max-w-6xl mx-auto px-4 h-20 flex items-center justify-between">
             <a href="#" class="text-xl font-extrabold tracking-tighter">NURHALIZA<span class="text-amber-700">.</span></a>
@@ -30,49 +29,47 @@
         </div>
     </header>
 
-    <!-- Hero & Main Content -->
+    <!-- Main Content -->
     <main class="pt-32 pb-20 max-w-6xl mx-auto px-4 space-y-20">
+        <!-- SEKSI HERO & LAINNYA (Sesuai Portfolio Asli Kakak) -->
         <section id="about">
             <h1 class="text-5xl font-extrabold mb-6 tracking-tight">Mengelola Keuangan dengan Presisi.</h1>
             <p class="text-lg text-stone-600 max-w-2xl">Selamat datang! Saya Nurhaliza Sofia Yunus — Profesional Staff Keuangan sejak 2019 dan desainer kreatif yang berdedikasi.</p>
         </section>
 
-        <!-- Section Karya (Trigger Modal) -->
+        <!-- SEKSI KARYA (Dengan Modal Drag & Zoom) -->
         <section id="works">
             <h2 class="text-3xl font-bold mb-10 text-center">Hasil Karya & Portofolio</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div class="p-6 bg-white rounded-2xl shadow-sm border border-stone-200">
                     <h3 class="font-bold text-lg mb-2">Pawon Kanaya - Sinom Luntas</h3>
-                    <button onclick="openModal('Pawon Kanaya', 'Detail proses desain logo', 'Proses UMKM Sidoarjo', 'images/logo-pawon.jpg')" class="bg-stone-900 text-white px-4 py-2 rounded-lg text-sm hover:bg-amber-700">Lihat Detail</button>
+                    <button onclick="openModal('Pawon Kanaya', 'Detail proses logo', 'info tambahan', 'images/logo-pawon.jpg')" class="bg-stone-900 text-white px-4 py-2 rounded-lg text-sm">Lihat Detail</button>
                 </div>
             </div>
         </section>
     </main>
 
-    <!-- Modal Interaktif -->
+    <!-- MODAL INTERAKTIF (LENGKAP) -->
     <div id="karya-modal" onclick="closeModalOnBackdrop(event)" class="fixed inset-0 bg-stone-900/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
         <div class="bg-white rounded-2xl max-w-4xl w-full p-6 shadow-2xl relative flex flex-col">
             <button onclick="closeModal()" class="absolute top-4 right-4 p-2 bg-stone-100 rounded-full hover:bg-stone-200"><i data-lucide="x" class="w-5 h-5"></i></button>
             <h3 id="modal-title" class="text-xl font-extrabold mb-4">Judul</h3>
             
-            <!-- Kontrol Zoom -->
             <div class="flex gap-2 mb-4">
                 <button onclick="changeZoom(0.2)" class="px-3 py-1 bg-stone-900 text-white rounded text-xs flex items-center gap-1"><i data-lucide="zoom-in" class="w-3 h-3"></i> Zoom In</button>
                 <button onclick="changeZoom(-0.2)" class="px-3 py-1 bg-stone-600 text-white rounded text-xs flex items-center gap-1"><i data-lucide="zoom-out" class="w-3 h-3"></i> Zoom Out</button>
             </div>
 
-            <!-- Kontainer Gambar -->
             <div id="modal-img-container" class="flex-grow bg-stone-100 rounded-lg border border-stone-200">
                 <img id="modal-img" src="" alt="Detail Karya" class="min-w-full">
             </div>
-            <p class="text-xs mt-3 text-stone-500 italic">Tips: Klik kiri & seret (drag) gambar untuk menjelajah.</p>
+            <p class="text-xs mt-3 text-stone-500 italic">Tips: Klik kiri & seret (drag) gambar untuk menjelajah detail setelah di-zoom.</p>
         </div>
     </div>
 
     <script>
         lucide.createIcons();
         
-        // Logika Zoom & Drag
         let zoomLevel = 1;
         const img = document.getElementById('modal-img');
         const container = document.getElementById('modal-img-container');
