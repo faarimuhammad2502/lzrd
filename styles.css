@@ -53,3 +53,84 @@
     background-image: url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=1920');
 }
 
+
+
+/* A warmer, editorial finish with clearer emphasis and less interface chrome. */
+:root {
+  --ink: #282820;
+  --paper: #f7f5ef;
+  --accent: #9c5138;
+  --sage: #52665b;
+}
+html { scroll-padding-top: 5.5rem; }
+body {
+  font-family: "DM Sans", sans-serif;
+  background-color: var(--paper);
+  color: var(--ink);
+}
+.dark body { background-color: #20231f; color: #efeee7; }
+body.bg-subtle-texture, .dark body.bg-subtle-texture {
+  background-image: none;
+}
+h1, h2 {
+  font-family: "DM Serif Display", Georgia, serif;
+  font-weight: 400 !important;
+  letter-spacing: -0.025em !important;
+}
+h1 { line-height: 1.08 !important; }
+h2 { line-height: 1.15 !important; }
+strong { font-weight: 700; color: var(--accent); }
+.dark strong { color: #d59a7d; }
+.hero-background-image { display: none; }
+.bg-gradient-texture {
+  background: linear-gradient(120deg, #f1eee5 0%, #faf8f3 58%, #eee9df 100%);
+}
+.dark .bg-gradient-texture {
+  background: linear-gradient(120deg, #222620 0%, #20231f 60%, #292b25 100%);
+}
+section > div > .text-center {
+  text-align: left;
+  margin-left: 0;
+  margin-right: auto;
+  max-width: 42rem;
+  padding-left: 1.1rem;
+  border-left: 2px solid var(--accent);
+}
+section > div > .text-center h2 { margin-top: .4rem; }
+section > div > .text-center p { max-width: 34rem; line-height: 1.75; }
+.tab-btn, button, a { transition-duration: 220ms; }
+section [class*="rounded-2xl"], section [class*="rounded-3xl"] {
+  border-radius: 1rem;
+}
+section [class*="shadow-2xl"], section [class*="shadow-xl"] {
+  box-shadow: 0 16px 42px rgba(39, 34, 25, .10);
+}
+#about .space-y-6 > div:first-child {
+  letter-spacing: .12em;
+}
+#about .space-y-6 > p {
+  max-width: 42rem;
+  font-size: 1.05rem;
+  line-height: 1.85;
+}
+#about .space-y-6 > div:nth-of-type(2) {
+  max-width: 37rem;
+  border-left-color: var(--accent);
+  background: rgba(255,255,255,.58);
+  font-family: "DM Serif Display", Georgia, serif;
+  font-size: 1rem;
+  line-height: 1.65;
+}
+.dark #about .space-y-6 > div:nth-of-type(2) {
+  background: rgba(255,255,255,.045);
+}
+#experience .group:hover { transform: translateY(-2px); }
+#video-gallery article { border-radius: 1rem; }
+#video-gallery article > div:last-child { padding: 1.25rem 1.4rem; }
+footer { background-color: #292d28 !important; }
+.dark footer { background-color: #171a17 !important; }
+@media (max-width: 640px) {
+  section > div > .text-center { padding-left: .85rem; }
+  #about { padding-top: 7.5rem; }
+  #about h1 { font-size: clamp(2.45rem, 10vw, 3.4rem); }
+}
