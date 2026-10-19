@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nurhaliza Sofia Yunus - Portfolio | Accounting staff & Creative Professional</title>
     
-    <!-- Tailwind CSS -->
+    <!-- Tailwind CSS configuration and framework -->
+    <script src="tailwind.config.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -13,79 +14,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
-                    },
-                    colors: {
-                        stone: {
-                            750: '#322f2c',
-                            850: '#201e1c',
-                            900: '#1c1917',
-                        },
-                        amber: {
-                            700: '#b45309',
-                        }
-                    }
-                }
-            }
-        }
-    </script>
-    <style>
-        .modal-active { overflow: hidden; }
-        .tab-btn.active {
-            background-color: #1c1917;
-            color: #ffffff;
-            border-color: #1c1917;
-        }
-        .dark .tab-btn.active {
-            background-color: #f5f5f4;
-            color: #1c1917;
-            border-color: #f5f5f4;
-        }
-        .bg-subtle-texture {
-            background-image: radial-gradient(#d6d3d1 0.8px, transparent 0.8px);
-            background-size: 16px 16px;
-        }
-        .dark .bg-subtle-texture {
-            background-image: radial-gradient(#44403c 0.8px, transparent 0.8px);
-            background-size: 16px 16px;
-        }
-        .bg-gradient-texture {
-            background: linear-gradient(135deg, rgba(245,245,244,0.9) 0%, rgba(231,229,228,0.5) 100%);
-        }
-        .dark .bg-gradient-texture {
-            background: linear-gradient(135deg, rgba(28,25,23,0.9) 0%, rgba(44,40,36,0.5) 100%);
-        }
-        
-        .photo-crop-mask {
-            clip-path: inset(2.5% 2.5% 0 2.5% round 1rem 1rem 0 0);
-        }
-
-        /* Drag-to-Scroll & Zoom Styles untuk Modal */
-        #modal-img-container {
-            cursor: grab;
-            overflow: auto;
-            position: relative;
-            scrollbar-width: thin;
-        }
-        #modal-img-container:active {
-            cursor: grabbing;
-        }
-        #modal-img {
-            transition: transform 0.2s ease;
-            transform-origin: 0 0;
-            display: block;
-        }
-
-        #backToTop {
-            transition: opacity 0.3s, visibility 0.3s, transform 0.3s;
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body class="bg-stone-50 dark:bg-stone-900 text-stone-800 dark:text-stone-100 font-sans antialiased selection:bg-stone-800 selection:text-white dark:selection:bg-stone-200 dark:selection:text-stone-900 relative bg-subtle-texture transition-colors duration-300">
 
@@ -112,11 +41,12 @@
                     <a href="#about" class="hover:text-stone-900 dark:hover:text-white transition-colors">Tentang</a>
                     <a href="#experience" class="hover:text-stone-900 dark:hover:text-white transition-colors">Pengalaman</a>
                     <a href="#works" class="hover:text-stone-900 dark:hover:text-white transition-colors">Karya & Portofolio</a>
+                    <a href="#videos" class="hover:text-stone-900 dark:hover:text-white transition-colors">Video</a>
                     <a href="#skills" class="hover:text-stone-900 dark:hover:text-white transition-colors">Keahlian</a>
                     <a href="#contact" class="hover:text-stone-900 dark:hover:text-white transition-colors">Kontak</a>
                 </nav>
                 <div class="flex items-center gap-3">
-                    <button onclick="toggleDarkMode()" class="p-2.5 rounded-lg border border-stone-300 dark:border-stone-700 text-stone-700 dark:text-stone-200 hover:bg-stone-200 dark:hover:bg-stone-800 transition-all" title="Ubah Mode Tampilan">
+                    <button data-action="toggle-dark-mode" class="p-2.5 rounded-lg border border-stone-300 dark:border-stone-700 text-stone-700 dark:text-stone-200 hover:bg-stone-200 dark:hover:bg-stone-800 transition-all" title="Ubah Mode Tampilan">
                         <i id="theme-icon-sun" data-lucide="sun" class="w-4 h-4 hidden"></i>
                         <i id="theme-icon-moon" data-lucide="moon" class="w-4 h-4"></i>
                     </button>
@@ -130,8 +60,7 @@
 
     <!-- Hero Section -->
     <section id="about" class="relative pt-32 pb-20 md:pt-40 md:pb-28 border-b border-stone-200/80 dark:border-stone-800 overflow-hidden bg-gradient-texture transition-colors duration-300">
-        <div class="absolute inset-0 z-0 opacity-[0.05] bg-cover bg-center mix-blend-multiply pointer-events-none" 
-             style="background-image: url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=1920');">
+        <div class="absolute inset-0 z-0 opacity-[0.05] bg-cover bg-center mix-blend-multiply pointer-events-none hero-background-image">
         </div>
         
         <div class="absolute -top-24 -left-24 w-96 h-96 bg-amber-200/30 dark:bg-amber-700/10 rounded-full blur-3xl pointer-events-none"></div>
@@ -353,7 +282,7 @@
                             Sertifikasi Interaktif (Klik Untuk Pratinjau)
                         </h3>
                         <div class="bg-white/90 dark:bg-stone-800/90 p-6 rounded-2xl border border-stone-200/80 dark:border-stone-700 shadow-xs space-y-4 text-xs sm:text-sm">
-                            <div onclick="openModal('Pengangkatan Wartawan Kehormatan KOCIS', 'Sertifikat Pengangkatan Resmi Wartawan Kehormatan Tahun 2023 dari Kementerian Kebudayaan, Olahraga, dan Pariwisata Korea (19 Mei 2023).', 'Penerbit: KOCIS / Korean Culture and Information Service (Direktur Kim Jangho)', 'images/cert-kocis.png')" class="flex items-start gap-3 p-3 rounded-xl bg-stone-50 dark:bg-stone-750 hover:bg-amber-50/60 dark:hover:bg-stone-700 border border-stone-200 dark:border-stone-700 cursor-pointer transition-all group">
+                            <div data-action="open-modal" data-modal-title="Pengangkatan Wartawan Kehormatan KOCIS" data-modal-description="Sertifikat Pengangkatan Resmi Wartawan Kehormatan Tahun 2023 dari Kementerian Kebudayaan, Olahraga, dan Pariwisata Korea (19 Mei 2023)." data-modal-extra="Penerbit: KOCIS / Korean Culture and Information Service (Direktur Kim Jangho)" data-modal-image="images/cert-kocis.png" class="flex items-start gap-3 p-3 rounded-xl bg-stone-50 dark:bg-stone-750 hover:bg-amber-50/60 dark:hover:bg-stone-700 border border-stone-200 dark:border-stone-700 cursor-pointer transition-all group">
                                 <i data-lucide="badge-check" class="w-5 h-5 text-amber-700 dark:text-amber-400 mt-0.5 flex-shrink-0 group-hover:scale-110 transition-transform"></i>
                                 <div class="flex-grow">
                                     <h4 class="font-bold text-stone-900 dark:text-white group-hover:text-amber-700 dark:group-hover:text-amber-400 transition-colors flex items-center justify-between">
@@ -364,7 +293,7 @@
                                 </div>
                             </div>
 
-                            <div onclick="openModal('IDN Times Writing Academy Certificate', 'Tanda Tamat Belajar Program IDN Times Writing Academy Batch 1 (6 Feb – 6 Mar 2021) dan dinyatakan LULUS dalam penulisan jurnalistik digital.', 'Penerbit: IDN Times Community, IDN Media (Pemimpin Redaksi Uni Lubis)', 'images/cert-idn.png')" class="flex items-start gap-3 p-3 rounded-xl bg-stone-50 dark:bg-stone-750 hover:bg-amber-50/60 dark:hover:bg-stone-700 border border-stone-200 dark:border-stone-700 cursor-pointer transition-all group">
+                            <div data-action="open-modal" data-modal-title="IDN Times Writing Academy Certificate" data-modal-description="Tanda Tamat Belajar Program IDN Times Writing Academy Batch 1 (6 Feb – 6 Mar 2021) dan dinyatakan LULUS dalam penulisan jurnalistik digital." data-modal-extra="Penerbit: IDN Times Community, IDN Media (Pemimpin Redaksi Uni Lubis)" data-modal-image="images/cert-idn.png" class="flex items-start gap-3 p-3 rounded-xl bg-stone-50 dark:bg-stone-750 hover:bg-amber-50/60 dark:hover:bg-stone-700 border border-stone-200 dark:border-stone-700 cursor-pointer transition-all group">
                                 <i data-lucide="badge-check" class="w-5 h-5 text-amber-700 dark:text-amber-400 mt-0.5 flex-shrink-0 group-hover:scale-110 transition-transform"></i>
                                 <div class="flex-grow">
                                     <h4 class="font-bold text-stone-900 dark:text-white group-hover:text-amber-700 dark:group-hover:text-amber-400 transition-colors flex items-center justify-between">
@@ -375,7 +304,7 @@
                                 </div>
                             </div>
 
-                            <div onclick="openModal('Volunteer Ticketing Jazz Traffic Festival', 'Sertifikat Penghargaan Keikutsertaan Aktif sebagai Volunteer Ticketing dalam ajang Jazz Traffic Festival 2019.', 'Penerbit: Radio Suara Surabaya 100 FM (Chairman Errol Jonathans)', 'images/cert-jazztraffic.png')" class="flex items-start gap-3 p-3 rounded-xl bg-stone-50 dark:bg-stone-750 hover:bg-amber-50/60 dark:hover:bg-stone-700 border border-stone-200 dark:border-stone-700 cursor-pointer transition-all group">
+                            <div data-action="open-modal" data-modal-title="Volunteer Ticketing Jazz Traffic Festival" data-modal-description="Sertifikat Penghargaan Keikutsertaan Aktif sebagai Volunteer Ticketing dalam ajang Jazz Traffic Festival 2019." data-modal-extra="Penerbit: Radio Suara Surabaya 100 FM (Chairman Errol Jonathans)" data-modal-image="images/cert-jazztraffic.png" class="flex items-start gap-3 p-3 rounded-xl bg-stone-50 dark:bg-stone-750 hover:bg-amber-50/60 dark:hover:bg-stone-700 border border-stone-200 dark:border-stone-700 cursor-pointer transition-all group">
                                 <i data-lucide="badge-check" class="w-5 h-5 text-amber-700 dark:text-amber-400 mt-0.5 flex-shrink-0 group-hover:scale-110 transition-transform"></i>
                                 <div class="flex-grow">
                                     <h4 class="font-bold text-stone-900 dark:text-white group-hover:text-amber-700 dark:group-hover:text-amber-400 transition-colors flex items-center justify-between">
@@ -402,16 +331,16 @@
             </div>
 
             <div class="flex flex-wrap items-center justify-center gap-2 mb-10">
-                <button onclick="switchTab('logo')" id="tab-logo" class="tab-btn active px-5 py-2.5 text-xs sm:text-sm font-bold rounded-lg border border-stone-300 dark:border-stone-700 transition-all flex items-center gap-2">
+                <button data-action="switch-tab" data-tab="logo" id="tab-logo" class="tab-btn active px-5 py-2.5 text-xs sm:text-sm font-bold rounded-lg border border-stone-300 dark:border-stone-700 transition-all flex items-center gap-2">
                     <i data-lucide="palette" class="w-4 h-4"></i> Desain Logo & Branding UMKM
                 </button>
-                <button onclick="switchTab('poster')" id="tab-poster" class="tab-btn px-5 py-2.5 text-xs sm:text-sm font-bold rounded-lg border border-stone-300 dark:border-stone-700 text-stone-700 dark:text-stone-300 hover:border-stone-900 dark:hover:border-white transition-all flex items-center gap-2">
+                <button data-action="switch-tab" data-tab="poster" id="tab-poster" class="tab-btn px-5 py-2.5 text-xs sm:text-sm font-bold rounded-lg border border-stone-300 dark:border-stone-700 text-stone-700 dark:text-stone-300 hover:border-stone-900 dark:hover:border-white transition-all flex items-center gap-2">
                     <i data-lucide="image" class="w-4 h-4"></i> Poster & Karya Seni
                 </button>
-                <button onclick="switchTab('writing')" id="tab-writing" class="tab-btn px-5 py-2.5 text-xs sm:text-sm font-bold rounded-lg border border-stone-300 dark:border-stone-700 text-stone-700 dark:text-stone-300 hover:border-stone-900 dark:hover:border-white transition-all flex items-center gap-2">
+                <button data-action="switch-tab" data-tab="writing" id="tab-writing" class="tab-btn px-5 py-2.5 text-xs sm:text-sm font-bold rounded-lg border border-stone-300 dark:border-stone-700 text-stone-700 dark:text-stone-300 hover:border-stone-900 dark:hover:border-white transition-all flex items-center gap-2">
                     <i data-lucide="file-text" class="w-4 h-4"></i> Artikel IDN Media
                 </button>
-                <button onclick="switchTab('fiction')" id="tab-fiction" class="tab-btn px-5 py-2.5 text-xs sm:text-sm font-bold rounded-lg border border-stone-300 dark:border-stone-700 text-stone-700 dark:text-stone-300 hover:border-stone-900 dark:hover:border-white transition-all flex items-center gap-2">
+                <button data-action="switch-tab" data-tab="fiction" id="tab-fiction" class="tab-btn px-5 py-2.5 text-xs sm:text-sm font-bold rounded-lg border border-stone-300 dark:border-stone-700 text-stone-700 dark:text-stone-300 hover:border-stone-900 dark:hover:border-white transition-all flex items-center gap-2">
                     <i data-lucide="book-open" class="w-4 h-4"></i> Cerita & Karya Tulis (Wattpad)
                 </button>
             </div>
@@ -430,7 +359,7 @@
                         <p class="text-xs sm:text-sm text-stone-600 dark:text-stone-300 leading-relaxed">
                             Alur pembuatan logo UMKM mulai dari sketsa pensil awal, transformasi karakter animasi bertema herbal, hingga desain akhir label kemasan "Sinom Luntas" yang terdaftar hak paten.
                         </p>
-                        <button onclick="openModal('Pawon Kanaya - Sinom Luntas', 'Proses lengkap dari sketch awal, karakter animasi, kemasan label produk, hingga berhasil dipatenkan.', 'Kombinasi Kunyit, Asem, Luntas, Gula Batu | PIRT No: Pawon Kanaya Sidoarjo', 'images/logo-pawon.jpg')" class="w-full py-2.5 bg-stone-900 dark:bg-stone-100 hover:bg-stone-800 dark:hover:bg-white text-white dark:text-stone-900 font-semibold text-xs rounded-lg transition-all flex items-center justify-center gap-2">
+                        <button data-action="open-modal" data-modal-title="Pawon Kanaya - Sinom Luntas" data-modal-description="Proses lengkap dari sketch awal, karakter animasi, kemasan label produk, hingga berhasil dipatenkan." data-modal-extra="Kombinasi Kunyit, Asem, Luntas, Gula Batu | PIRT No: Pawon Kanaya Sidoarjo" data-modal-image="images/logo-pawon.jpg" class="w-full py-2.5 bg-stone-900 dark:bg-stone-100 hover:bg-stone-800 dark:hover:bg-white text-white dark:text-stone-900 font-semibold text-xs rounded-lg transition-all flex items-center justify-center gap-2">
                             <i data-lucide="eye" class="w-4 h-4"></i> Perbesar & Lihat Gambar Proses Logo
                         </button>
                     </div>
@@ -448,7 +377,7 @@
                         <p class="text-xs sm:text-sm text-stone-600 dark:text-stone-300 leading-relaxed">
                             Pengembangan karakter animasi chef untuk produk kuliner sehat "Mie Ayam Penunjang Imun". Brand identity ini terbukti sukses dan mendapatkan liputan media nasional di GTV dan CNN Indonesia.
                         </p>
-                        <button onclick="openModal('Mie Luntas - Omah Sinom', 'Karakter animasi chef dengan elemen daun beluntas, digunakan sebagai branding utama kuliner mie ayam penunjang imun yang diliput stasiun TV nasional.', 'Varian Kuliner Sehat UMKM Sidoarjo', 'images/logo-mieluntas.jpg')" class="w-full py-2.5 bg-stone-900 dark:bg-stone-100 hover:bg-stone-800 dark:hover:bg-white text-white dark:text-stone-900 font-semibold text-xs rounded-lg transition-all flex items-center justify-center gap-2">
+                        <button data-action="open-modal" data-modal-title="Mie Luntas - Omah Sinom" data-modal-description="Karakter animasi chef dengan elemen daun beluntas, digunakan sebagai branding utama kuliner mie ayam penunjang imun yang diliput stasiun TV nasional." data-modal-extra="Varian Kuliner Sehat UMKM Sidoarjo" data-modal-image="images/logo-mieluntas.jpg" class="w-full py-2.5 bg-stone-900 dark:bg-stone-100 hover:bg-stone-800 dark:hover:bg-white text-white dark:text-stone-900 font-semibold text-xs rounded-lg transition-all flex items-center justify-center gap-2">
                             <i data-lucide="eye" class="w-4 h-4"></i> Perbesar & Lihat Gambar Logo & TV
                         </button>
                     </div>
@@ -461,7 +390,7 @@
                     <h3 class="text-lg font-bold text-stone-900 dark:text-white">Radio MARI (Mahana Raid)</h3>
                     <p class="text-xs text-stone-500 dark:text-stone-400 font-semibold">Perlombaan Karya Seni 1</p>
                     <p class="text-xs sm:text-sm text-stone-600 dark:text-stone-300">Ilustrasi poster kreatif bertema penyiaran radio dengan kutipan "Udara dengan warna kita, sejuta cerita 'tuk terisi".</p>
-                    <button onclick="openModal('Poster Radio MARI', 'Ilustrasi poster bertema komunikasi radio dan keberagaman pesan positif untuk ajang Perlombaan Karya Seni.', 'Karya Seni Poster Penyiaran Radio', 'images/poster-mari.jpg')" class="w-full py-2 bg-stone-900 dark:bg-stone-100 hover:bg-stone-800 dark:hover:bg-white text-white dark:text-stone-900 font-semibold text-xs rounded-lg transition-all">
+                    <button data-action="open-modal" data-modal-title="Poster Radio MARI" data-modal-description="Ilustrasi poster bertema komunikasi radio dan keberagaman pesan positif untuk ajang Perlombaan Karya Seni." data-modal-extra="Karya Seni Poster Penyiaran Radio" data-modal-image="images/poster-mari.jpg" class="w-full py-2 bg-stone-900 dark:bg-stone-100 hover:bg-stone-800 dark:hover:bg-white text-white dark:text-stone-900 font-semibold text-xs rounded-lg transition-all">
                         Perbesar & Gambar Poster
                     </button>
                 </div>
@@ -470,7 +399,7 @@
                     <h3 class="text-lg font-bold text-stone-900 dark:text-white">Pameran Seni Budaya</h3>
                     <p class="text-xs text-stone-500 dark:text-stone-400 font-semibold">Perlombaan Karya Seni 2</p>
                     <p class="text-xs sm:text-sm text-stone-600 dark:text-stone-300">Ilustrasi simbolis bermotif wayang, Monas, simbol-simbol keagamaan, dan flora-fauna Indonesia.</p>
-                    <button onclick="openModal('Poster Pameran Seni', 'Karya poster bertema filosofi kebudayaan, toleransi, dan keberagaman Indonesia.', 'Karya Seni Poster Kebudayaan', 'images/poster-pameran.jpg')" class="w-full py-2 bg-stone-900 dark:bg-stone-100 hover:bg-stone-800 dark:hover:bg-white text-white dark:text-stone-900 font-semibold text-xs rounded-lg transition-all">
+                    <button data-action="open-modal" data-modal-title="Poster Pameran Seni" data-modal-description="Karya poster bertema filosofi kebudayaan, toleransi, dan keberagaman Indonesia." data-modal-extra="Karya Seni Poster Kebudayaan" data-modal-image="images/poster-pameran.jpg" class="w-full py-2 bg-stone-900 dark:bg-stone-100 hover:bg-stone-800 dark:hover:bg-white text-white dark:text-stone-900 font-semibold text-xs rounded-lg transition-all">
                         Perbesar & Gambar Poster
                     </button>
                 </div>
@@ -479,7 +408,7 @@
                     <h3 class="text-lg font-bold text-stone-900 dark:text-white">Life Mapping Illustration</h3>
                     <p class="text-xs text-stone-500 dark:text-stone-400 font-semibold">Personal Visual Mapping</p>
                     <p class="text-xs sm:text-sm text-stone-600 dark:text-stone-300">Visualisasi kreatif berupa pemetaan target hidup, pendidikan S2, karir, keluarga, dan impian.</p>
-                    <button onclick="openModal('Life Mapping Illustration', 'Ilustrasi visual buatan tangan yang memetakan jalur impian, akademis, dan pengembangan diri.', 'Digital & Hand-drawn Art Mapping', 'images/life-mapping.jpg')" class="w-full py-2 bg-stone-900 dark:bg-stone-100 hover:bg-stone-800 dark:hover:bg-white text-white dark:text-stone-900 font-semibold text-xs rounded-lg transition-all">
+                    <button data-action="open-modal" data-modal-title="Life Mapping Illustration" data-modal-description="Ilustrasi visual buatan tangan yang memetakan jalur impian, akademis, dan pengembangan diri." data-modal-extra="Digital &amp; Hand-drawn Art Mapping" data-modal-image="images/life-mapping.jpg" class="w-full py-2 bg-stone-900 dark:bg-stone-100 hover:bg-stone-800 dark:hover:bg-white text-white dark:text-stone-900 font-semibold text-xs rounded-lg transition-all">
                         Perbesar & Gambar Mapping
                     </button>
                 </div>
@@ -507,7 +436,7 @@
                         <a href="https://www.idntimes.com/nurhaliza-sofia-yunus" target="_blank" class="px-5 py-2.5 bg-amber-700 hover:bg-amber-800 text-white font-semibold text-xs rounded-lg transition-all flex items-center gap-2">
                             <i data-lucide="external-link" class="w-4 h-4"></i> Buka Langsung IDN Times
                         </a>
-                        <button onclick="openModal('Artikel IDN Media', 'Galeri publikasi penulisan artikel populer Nurhaliza Sofia Yunus di platform IDN Times Community.', 'Akses Artikel Lengkap: www.idntimes.com/nurhaliza-sofia-yunus', 'images/idn-articles.jpg')" class="px-5 py-2.5 bg-stone-900 dark:bg-stone-100 hover:bg-stone-800 dark:hover:bg-white text-white dark:text-stone-900 font-semibold text-xs rounded-lg transition-all flex items-center gap-2">
+                        <button data-action="open-modal" data-modal-title="Artikel IDN Media" data-modal-description="Galeri publikasi penulisan artikel populer Nurhaliza Sofia Yunus di platform IDN Times Community." data-modal-extra="Akses Artikel Lengkap: www.idntimes.com/nurhaliza-sofia-yunus" data-modal-image="images/idn-articles.jpg" class="px-5 py-2.5 bg-stone-900 dark:bg-stone-100 hover:bg-stone-800 dark:hover:bg-white text-white dark:text-stone-900 font-semibold text-xs rounded-lg transition-all flex items-center gap-2">
                             <i data-lucide="eye" class="w-4 h-4"></i> Perbesar Gambar Artikel
                         </button>
                     </div>
@@ -536,13 +465,26 @@
                         <a href="https://www.wattpad.com/user/goodziLIZArd" target="_blank" class="px-5 py-2.5 bg-amber-700 hover:bg-amber-800 text-white font-semibold text-xs rounded-lg transition-all flex items-center gap-2">
                             <i data-lucide="external-link" class="w-4 h-4"></i> Buka Langsung Wattpad
                         </a>
-                        <button onclick="openModal('Menulis Cerita & Prosa', 'Kumpulan sampul karya tulis Wattpad, prosa, dan esai kreatif karya Nurhaliza Sofia Yunus (goodziLIZArd).', 'Profil Penulis Wattpad: www.wattpad.com/user/goodziLIZArd', 'images/wattpad-stories.jpg')" class="px-5 py-2.5 bg-stone-900 dark:bg-stone-100 hover:bg-stone-800 dark:hover:bg-white text-white dark:text-stone-900 font-semibold text-xs rounded-lg transition-all flex items-center gap-2">
+                        <button data-action="open-modal" data-modal-title="Menulis Cerita &amp; Prosa" data-modal-description="Kumpulan sampul karya tulis Wattpad, prosa, dan esai kreatif karya Nurhaliza Sofia Yunus (goodziLIZArd)." data-modal-extra="Profil Penulis Wattpad: www.wattpad.com/user/goodziLIZArd" data-modal-image="images/wattpad-stories.jpg" class="px-5 py-2.5 bg-stone-900 dark:bg-stone-100 hover:bg-stone-800 dark:hover:bg-white text-white dark:text-stone-900 font-semibold text-xs rounded-lg transition-all flex items-center gap-2">
                             <i data-lucide="eye" class="w-4 h-4"></i> Perbesar Gambar Karya Tulis
                         </button>
                     </div>
                 </div>
             </div>
 
+        </div>
+    </section>
+
+    <!-- Video Section -->
+    <section id="videos" class="py-20 border-b border-stone-200/80 dark:border-stone-800 transition-colors duration-300">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-12">
+                <span class="text-xs font-bold text-amber-700 dark:text-amber-400 tracking-widest uppercase">Video & Media</span>
+                <h2 class="text-3xl font-extrabold text-stone-900 dark:text-white tracking-tight mt-1">Liputan & Momen Pilihan</h2>
+                <p class="text-stone-600 dark:text-stone-300 mt-2 text-sm">Kumpulan video pilihan Nurhaliza.</p>
+            </div>
+            <div id="video-gallery" class="grid grid-cols-1 md:grid-cols-2 gap-6" aria-live="polite"></div>
+            <p id="video-empty-state" class="text-center text-sm text-stone-500 dark:text-stone-400">Video akan ditampilkan di sini.</p>
         </div>
     </section>
 
@@ -576,7 +518,7 @@
                                 <span class="text-[10px] font-bold text-amber-700 dark:text-amber-400 bg-amber-50 dark:bg-amber-950/60 px-2 py-0.5 rounded border border-amber-200 dark:border-amber-800">Advanced</span>
                             </div>
                             <div class="w-full bg-stone-200 dark:bg-stone-700 h-1.5 rounded-full overflow-hidden">
-                                <div class="bg-amber-700 dark:bg-amber-500 h-full rounded-full" style="width: 90%"></div>
+                                <div class="bg-amber-700 dark:bg-amber-500 h-full rounded-full w-[90%]"></div>
                             </div>
                         </div>
 
@@ -588,7 +530,7 @@
                                 <span class="text-[10px] font-bold text-amber-700 dark:text-amber-400 bg-amber-50 dark:bg-amber-950/60 px-2 py-0.5 rounded border border-amber-200 dark:border-amber-800">Proficient</span>
                             </div>
                             <div class="w-full bg-stone-200 dark:bg-stone-700 h-1.5 rounded-full overflow-hidden">
-                                <div class="bg-amber-700 dark:bg-amber-500 h-full rounded-full" style="width: 88%"></div>
+                                <div class="bg-amber-700 dark:bg-amber-500 h-full rounded-full w-[88%]"></div>
                             </div>
                         </div>
 
@@ -600,7 +542,7 @@
                                 <span class="text-[10px] font-bold text-amber-700 dark:text-amber-400 bg-amber-50 dark:bg-amber-950/60 px-2 py-0.5 rounded border border-amber-200 dark:border-amber-800">Advanced</span>
                             </div>
                             <div class="w-full bg-stone-200 dark:bg-stone-700 h-1.5 rounded-full overflow-hidden">
-                                <div class="bg-amber-700 dark:bg-amber-500 h-full rounded-full" style="width: 95%"></div>
+                                <div class="bg-amber-700 dark:bg-amber-500 h-full rounded-full w-[95%]"></div>
                             </div>
                         </div>
                     </div>
@@ -626,7 +568,7 @@
                                 <span class="text-[10px] font-bold text-stone-800 dark:text-stone-100 bg-stone-200 dark:bg-stone-700 px-2 py-0.5 rounded border border-stone-300 dark:border-stone-600">Advanced</span>
                             </div>
                             <div class="w-full bg-stone-200 dark:bg-stone-700 h-1.5 rounded-full overflow-hidden">
-                                <div class="bg-stone-900 dark:bg-white h-full rounded-full" style="width: 94%"></div>
+                                <div class="bg-stone-900 dark:bg-white h-full rounded-full w-[94%]"></div>
                             </div>
                         </div>
 
@@ -638,7 +580,7 @@
                                 <span class="text-[10px] font-bold text-stone-800 dark:text-stone-100 bg-stone-200 dark:bg-stone-700 px-2 py-0.5 rounded border border-stone-300 dark:border-stone-600">Proficient</span>
                             </div>
                             <div class="w-full bg-stone-200 dark:bg-stone-700 h-1.5 rounded-full overflow-hidden">
-                                <div class="bg-stone-900 dark:bg-white h-full rounded-full" style="width: 86%"></div>
+                                <div class="bg-stone-900 dark:bg-white h-full rounded-full w-[86%]"></div>
                             </div>
                         </div>
 
@@ -650,7 +592,7 @@
                                 <span class="text-[10px] font-bold text-stone-800 dark:text-stone-100 bg-stone-200 dark:bg-stone-700 px-2 py-0.5 rounded border border-stone-300 dark:border-stone-600">Proficient</span>
                             </div>
                             <div class="w-full bg-stone-200 dark:bg-stone-700 h-1.5 rounded-full overflow-hidden">
-                                <div class="bg-stone-900 dark:bg-white h-full rounded-full" style="width: 85%"></div>
+                                <div class="bg-stone-900 dark:bg-white h-full rounded-full w-[85%]"></div>
                             </div>
                         </div>
 
@@ -662,7 +604,7 @@
                                 <span class="text-[10px] font-bold text-stone-800 dark:text-stone-100 bg-stone-200 dark:bg-stone-700 px-2 py-0.5 rounded border border-stone-300 dark:border-stone-600">Advanced</span>
                             </div>
                             <div class="w-full bg-stone-200 dark:bg-stone-700 h-1.5 rounded-full overflow-hidden">
-                                <div class="bg-stone-900 dark:bg-white h-full rounded-full" style="width: 90%"></div>
+                                <div class="bg-stone-900 dark:bg-white h-full rounded-full w-[90%]"></div>
                             </div>
                         </div>
                     </div>
@@ -689,7 +631,7 @@
                         <a href="https://wa.me/6281294430304" target="_blank" class="text-stone-300 hover:text-white transition-colors">
                             WA: +62 812-9443-0304
                         </a>
-                        <button onclick="copyToClipboard('+6281294430304', 'Nomor WhatsApp')" class="text-stone-500 hover:text-amber-500 transition-colors" title="Salin Nomor WA">
+                        <button data-action="copy" data-copy-text="+6281294430304" data-copy-label="Nomor WhatsApp" class="text-stone-500 hover:text-amber-500 transition-colors" title="Salin Nomor WA">
                             <i data-lucide="copy" class="w-3.5 h-3.5"></i>
                         </button>
                     </div>
@@ -697,7 +639,7 @@
                         <a href="mailto:jobs.nurhalizasofiayunus@gmail.com" class="text-stone-300 hover:text-white transition-colors truncate max-w-[220px]">
                             jobs.nurhalizasofiayunus@gmail.com
                         </a>
-                        <button onclick="copyToClipboard('jobs.nurhalizasofiayunus@gmail.com', 'Alamat Email')" class="text-stone-500 hover:text-amber-500 transition-colors" title="Salin Email">
+                        <button data-action="copy" data-copy-text="jobs.nurhalizasofiayunus@gmail.com" data-copy-label="Alamat Email" class="text-stone-500 hover:text-amber-500 transition-colors" title="Salin Email">
                             <i data-lucide="copy" class="w-3.5 h-3.5"></i>
                         </button>
                     </div>
@@ -725,9 +667,9 @@
     </footer>
 
     <!-- MODAL LENGKAP DENGAN ZOOM & DRAG -->
-    <div id="karya-modal" onclick="closeModalOnBackdrop(event)" class="fixed inset-0 bg-stone-900/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div id="karya-modal" data-action="close-modal-backdrop" class="fixed inset-0 bg-stone-900/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
         <div class="bg-white dark:bg-stone-850 rounded-2xl max-w-4xl w-full p-6 shadow-2xl border border-stone-200 dark:border-stone-700 relative max-h-[95vh] overflow-y-auto transition-colors flex flex-col">
-            <button onclick="closeModal()" class="absolute top-4 right-4 text-stone-400 hover:text-stone-900 dark:hover:text-white z-30 p-2 bg-stone-100 dark:bg-stone-800 rounded-full">
+            <button data-action="close-modal" class="absolute top-4 right-4 text-stone-400 hover:text-stone-900 dark:hover:text-white z-30 p-2 bg-stone-100 dark:bg-stone-800 rounded-full">
                 <i data-lucide="x" class="w-5 h-5"></i>
             </button>
             <span class="text-[10px] font-bold uppercase tracking-wider text-amber-700 dark:text-amber-400 bg-stone-100 dark:bg-stone-800 px-2.5 py-1 rounded w-max">Detail Dokumen</span>
@@ -735,13 +677,13 @@
             
             <!-- Kontrol Tombol Zoom In / Zoom Out / Reset -->
             <div class="flex gap-2 my-3">
-                <button onclick="changeZoom(0.2)" class="px-3 py-1 bg-stone-900 dark:bg-stone-700 text-white text-xs font-bold rounded flex items-center gap-1 hover:bg-amber-700 transition-colors">
+                <button data-action="zoom" data-zoom-delta="0.2" class="px-3 py-1 bg-stone-900 dark:bg-stone-700 text-white text-xs font-bold rounded flex items-center gap-1 hover:bg-amber-700 transition-colors">
                     <i data-lucide="zoom-in" class="w-3 h-3"></i> Zoom In
                 </button>
-                <button onclick="changeZoom(-0.2)" class="px-3 py-1 bg-stone-600 dark:bg-stone-700 text-white text-xs font-bold rounded flex items-center gap-1 hover:bg-stone-500 transition-colors">
+                <button data-action="zoom" data-zoom-delta="-0.2" class="px-3 py-1 bg-stone-600 dark:bg-stone-700 text-white text-xs font-bold rounded flex items-center gap-1 hover:bg-stone-500 transition-colors">
                     <i data-lucide="zoom-out" class="w-3 h-3"></i> Zoom Out
                 </button>
-                <button onclick="resetZoom()" class="px-3 py-1 bg-stone-200 dark:bg-stone-800 text-stone-800 dark:text-stone-200 text-xs font-bold rounded hover:bg-stone-300">
+                <button data-action="reset-zoom" class="px-3 py-1 bg-stone-200 dark:bg-stone-800 text-stone-800 dark:text-stone-200 text-xs font-bold rounded hover:bg-stone-300">
                     Reset
                 </button>
             </div>
@@ -759,7 +701,7 @@
             </div>
 
             <div class="mt-6 flex justify-end">
-                <button onclick="closeModal()" class="px-6 py-2.5 bg-stone-900 dark:bg-stone-100 text-white dark:text-stone-900 font-semibold text-xs rounded-lg">
+                <button data-action="close-modal" class="px-6 py-2.5 bg-stone-900 dark:bg-stone-100 text-white dark:text-stone-900 font-semibold text-xs rounded-lg">
                     Tutup
                 </button>
             </div>
@@ -767,134 +709,7 @@
     </div>
 
     <!-- JavaScript Functions -->
-    <script>
-        lucide.createIcons();
-
-        // Tombol Back to Top Logic
-        const backToTop = document.getElementById('backToTop');
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 300) {
-                backToTop.classList.remove('hidden');
-                setTimeout(() => {
-                    backToTop.classList.remove('opacity-0', 'translate-y-10');
-                }, 10);
-            } else {
-                backToTop.classList.add('opacity-0', 'translate-y-10');
-                setTimeout(() => {
-                    backToTop.classList.add('hidden');
-                }, 300);
-            }
-        });
-
-        // Tab Switching Logic
-        function switchTab(tabName) {
-            const contents = document.querySelectorAll('.tab-content');
-            contents.forEach(el => el.classList.add('hidden'));
-
-            const buttons = document.querySelectorAll('.tab-btn');
-            buttons.forEach(btn => btn.classList.remove('active'));
-
-            document.getElementById('content-' + tabName).classList.remove('hidden');
-            document.getElementById('tab-' + tabName).classList.add('active');
-        }
-
-        // Variabel untuk Zoom & Drag
-        let zoomLevel = 1;
-        const img = document.getElementById('modal-img');
-        const container = document.getElementById('modal-img-container');
-
-        function changeZoom(delta) {
-            zoomLevel = Math.max(0.5, zoomLevel + delta);
-            img.style.transform = `scale(${zoomLevel})`;
-        }
-        function resetZoom() { 
-            zoomLevel = 1; 
-            img.style.transform = `scale(1)`; 
-            container.scrollLeft = 0;
-            container.scrollTop = 0;
-        }
-
-        // Drag-to-Scroll Logic di Modal
-        let isDown = false;
-        let startX, startY, scrollLeft, scrollTop;
-
-        container.addEventListener('mousedown', (e) => {
-            isDown = true;
-            startX = e.pageX - container.offsetLeft;
-            startY = e.pageY - container.offsetTop;
-            scrollLeft = container.scrollLeft;
-            scrollTop = container.scrollTop;
-        });
-
-        container.addEventListener('mouseleave', () => { isDown = false; });
-        container.addEventListener('mouseup', () => { isDown = false; });
-
-        container.addEventListener('mousemove', (e) => {
-            if (!isDown) return;
-            e.preventDefault();
-            const x = e.pageX - container.offsetLeft;
-            const y = e.pageY - container.offsetTop;
-            container.scrollLeft = scrollLeft - (x - startX);
-            container.scrollTop = scrollTop - (y - startY);
-        });
-
-        // Buka & Tutup Modal
-        function openModal(title, desc, extra, imgSrc = '') {
-            document.getElementById('modal-title').innerText = title;
-            document.getElementById('modal-desc').innerText = desc;
-            document.getElementById('modal-extra').innerText = extra;
-            
-            if(imgSrc) {
-                img.src = imgSrc;
-                container.classList.remove('hidden');
-                resetZoom();
-            } else {
-                container.classList.add('hidden');
-            }
-
-            document.getElementById('karya-modal').classList.remove('hidden');
-            document.body.classList.add('modal-active');
-        }
-
-        function closeModal() {
-            document.getElementById('karya-modal').classList.add('hidden');
-            document.body.classList.remove('modal-active');
-        }
-
-        function closeModalOnBackdrop(event) {
-            if (event.target.id === 'karya-modal') {
-                closeModal();
-            }
-        }
-
-        // Fungsi Salin Teks / Kontak
-        function copyToClipboard(text, label) {
-            navigator.clipboard.writeText(text).then(() => {
-                const toast = document.getElementById('toast');
-                document.getElementById('toast-message').innerText = label + ' berhasil disalin!';
-                toast.classList.remove('hidden');
-                setTimeout(() => {
-                    toast.classList.add('hidden');
-                }, 2500);
-            });
-        }
-
-        // Toggle Dark / Light Mode
-        function toggleDarkMode() {
-            const html = document.documentElement;
-            const sunIcon = document.getElementById('theme-icon-sun');
-            const moonIcon = document.getElementById('theme-icon-moon');
-            
-            if (html.classList.contains('dark')) {
-                html.classList.remove('dark');
-                sunIcon.classList.add('hidden');
-                moonIcon.classList.remove('hidden');
-            } else {
-                html.classList.add('dark');
-                sunIcon.classList.remove('hidden');
-                moonIcon.classList.add('hidden');
-            }
-        }
-    </script>
+    <script src="script.js" defer></script>
 </body>
 </html>
+
