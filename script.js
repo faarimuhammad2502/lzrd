@@ -141,17 +141,23 @@ function renderVideoGallery() {
 
     emptyState.classList.toggle('hidden', profileVideos.length > 0);
     gallery.innerHTML = profileVideos.map((video) => {
-        const embedUrl = `https://drive.google.com/file/d/${encodeURIComponent(video.id)}/preview`;
-        return `<article class="overflow-hidden rounded-2xl border border-stone-200 dark:border-stone-700 bg-white/90 dark:bg-stone-800/90 shadow-sm">
-            <div class="aspect-video bg-stone-200 dark:bg-stone-900">
-                <iframe src="${embedUrl}" title="${escapeHtml(video.title)}" class="w-full h-full" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen loading="lazy"></iframe>
-            </div>
-            <div class="p-5"><h3 class="font-bold text-stone-900 dark:text-white">${escapeHtml(video.title)}</h3>
-                ${video.description ? `<p class="mt-2 text-sm text-stone-600 dark:text-stone-300">${escapeHtml(video.description)}</p>` : ''}</div>
-        </article>`;
+        const id = encodeURIComponent(video.id);
+        const embedUrl = 'https://drive.google.com/file/d/' + id + '/preview';
+        const posterUrl = 'https://drive.google.com/thumbnail?id=' + id + '&sz=w1280';
+        return '<article class="video-card overflow-hidden rounded-2xl border border-stone-200 dark:border-stone-700 bg-white/90 dark:bg-stone-800/90 shadow-sm">' +
+            '<div class="video-frame aspect-video bg-stone-200 dark:bg-stone-900">' +
+                '<button class="video-cover" type="button" data-action="play-video" data-video-url="' + embedUrl + '" aria-label="Putar video ' + escapeHtml(video.title) + '">' +
+                    '<img src="' + posterUrl + '" alt="" loading="lazy" onerror="this.remove()">' +
+                    '<span class="video-play" aria-hidden="true"><i data-lucide="play" class="w-6 h-6"></i></span>' +
+                    '<span class="video-cover-label">Putar video</span>' +
+                '</button>' +
+            '</div>' +
+            '<div class="video-caption"><h3 class="font-bold text-stone-900 dark:text-white">' + escapeHtml(video.title) + '</h3>' +
+                (video.description ? '<p class="mt-2 text-sm text-stone-600 dark:text-stone-300">' + escapeHtml(video.description) + '</p>' : '') + '</div>' +
+        '</article>';
     }).join('');
+    if (window.lucide) lucide.createIcons();
 }
-
 function escapeHtml(value) {
     return String(value).replace(/[&<>"']/g, (character) => ({
         '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
@@ -160,12 +166,80 @@ function escapeHtml(value) {
 
 renderVideoGallery();
 
+function toggleMobileNav(forceOpen) {
+    const panel = document.getElementById('mobile-nav');
+    const toggle = document.querySelector('.mobile-nav-toggle');
+    if (!panel || !toggle) return;
+    const open = typeof forceOpen === 'boolean' ? forceOpen : panel.classList.contains('hidden');
+    panel.classList.toggle('hidden', !open);
+    toggle.setAttribute('aria-expanded', String(open));
+    toggle.setAttribute('aria-label', open ? 'Tutup menu' : 'Buka menu');
+    toggle.querySelector('.mobile-menu-icon')?.classList.toggle('hidden', open);
+    toggle.querySelector('.mobile-close-icon')?.classList.toggle('hidden', !open);
+}
+
+function preparePageMotion() {
+    const revealTargets = document.querySelectorAll(
+        'section > div > .text-center, #experience .group, #content-logo > div, #content-poster > div, #skills .grid > div, #video-gallery article'
+    );
+    revealTargets.forEach((element) => element.classList.add('reveal-up'));
+
+    if (!('IntersectionObserver' in window)) {
+        revealTargets.forEach((element) => element.classList.add('is-visible'));
+        return;
+    }
+    const revealObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('is-visible');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.12, rootMargin: '0px 0px -36px 0px' });
+    revealTargets.forEach((element) => revealObserver.observe(element));
+
+    const navLinks = [...document.querySelectorAll('#primary-nav a, #mobile-nav a')];
+    const sections = navLinks.map((link) => document.querySelector(link.getAttribute('href'))).filter(Boolean);
+    const activeObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            const sectionId = '#' + entry.target.id;
+            navLinks.forEach((link) => {
+                const active = link.getAttribute('href') === sectionId;
+                link.classList.toggle('is-active', active);
+                if (active) link.setAttribute('aria-current', 'location');
+                else link.removeAttribute('aria-current');
+            });
+        });
+    }, { rootMargin: '-28% 0px -62% 0px', threshold: 0 });
+    sections.forEach((section) => activeObserver.observe(section));
+}
+
+preparePageMotion();
+
 
 document.addEventListener('click', (event) => {
     const control = event.target.closest('[data-action]');
-    if (!control) return;
+    if (!control) {
+        if (event.target.closest('#mobile-nav a')) toggleMobileNav(false);
+        return;
+    }
 
     switch (control.dataset.action) {
+        case 'toggle-mobile-nav':
+            toggleMobileNav();
+            break;
+        case 'play-video': { 
+            const frame = document.createElement('iframe');
+            frame.src = control.dataset.videoUrl;
+            frame.title = control.getAttribute('aria-label') || 'Video pilihan';
+            frame.className = 'w-full h-full';
+            frame.allow = 'autoplay; encrypted-media; picture-in-picture';
+            frame.allowFullscreen = true;
+            frame.loading = 'lazy';
+            control.replaceWith(frame);
+            break;
+        }
         case 'switch-tab':
             switchTab(control.dataset.tab);
             break;
@@ -198,3 +272,12 @@ document.addEventListener('click', (event) => {
     }
 });
 
+
+
+document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') toggleMobileNav(false);
+});
+
+window.addEventListener('resize', () => {
+    if (window.innerWidth >= 768) toggleMobileNav(false);
+});
