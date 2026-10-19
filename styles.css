@@ -333,3 +333,64 @@ section [class*="rounded-3xl"]:hover {
 @media (min-width: 768px) {
     .mobile-nav-toggle { display: none !important; }
 }
+
+
+.art-poster-image {
+
+    display: block;
+
+    width: 100%;
+
+    aspect-ratio: 4 / 3;
+
+    object-fit: cover;
+
+    border: 1px solid rgba(120,113,108,.18);
+
+    border-radius: .75rem;
+
+    background: rgba(120,113,108,.08);
+
+}
+
+.art-video-card { align-content: start; }
+
+.project-video-frame { border-radius: .8rem; }
+
+.video-story {
+
+    padding: .8rem .9rem;
+
+    color: #5f5a50;
+
+    background: rgba(156,81,56,.055);
+
+    border-left: 2px solid #9c5138;
+
+    border-radius: 0 .65rem .65rem 0;
+
+    font-size: .82rem;
+
+    line-height: 1.7;
+
+}
+
+.video-story strong { display: inline-block; margin-bottom: .2rem; }
+
+.dark .video-story { color: #d1cec5; background: rgba(213,154,125,.075); border-color: #d59a7d; }
+
+#video-gallery { grid-template-columns: minmax(0, 1fr); max-width: 52rem; margin-inline: auto; }
+
+@media (min-width: 768px) {
+
+    .art-video-card { grid-column: span 1; }
+
+}
+
+@media (max-width: 767px) {
+
+    .art-poster-image { max-height: 22rem; }
+
+    .video-story { font-size: .79rem; }
+
+}
