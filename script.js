@@ -160,3 +160,41 @@ function escapeHtml(value) {
 
 renderVideoGallery();
 
+
+document.addEventListener('click', (event) => {
+    const control = event.target.closest('[data-action]');
+    if (!control) return;
+
+    switch (control.dataset.action) {
+        case 'switch-tab':
+            switchTab(control.dataset.tab);
+            break;
+        case 'toggle-dark-mode':
+            toggleDarkMode();
+            break;
+        case 'zoom':
+            changeZoom(Number(control.dataset.zoomDelta));
+            break;
+        case 'reset-zoom':
+            resetZoom();
+            break;
+        case 'open-modal':
+            openModal(
+                control.dataset.modalTitle,
+                control.dataset.modalDescription,
+                control.dataset.modalExtra,
+                control.dataset.modalImage
+            );
+            break;
+        case 'close-modal':
+            closeModal();
+            break;
+        case 'close-modal-backdrop':
+            if (event.target === control) closeModal();
+            break;
+        case 'copy':
+            copyToClipboard(control.dataset.copyText, control.dataset.copyLabel);
+            break;
+    }
+});
+
