@@ -130,8 +130,6 @@ lucide.createIcons();
 // Tambahkan tautan berbagi Google Drive ke daftar ini untuk menampilkan video.
 const profileVideos = [
     { id: '1YyVCZ1zuFfmvCYCGXrpszNG1wrbBOf60', title: 'Trailer Hourglass', description: 'Trailer film pendek Hourglass.' },
-    { id: '1Qtu_TfQ4MQ-KgArNlTFnO2OpaTLV-0_e', title: 'Video Ilustrasi Pameran Indonesia', description: 'Karya video ilustrasi untuk Pameran Indonesia.' },
-    { id: '1Mj96HUo4L-96cdvoqofejYsirBoqQdHU', title: 'Video Ilustrasi Radio MARI', description: 'Karya video ilustrasi untuk Radio MARI.' }
 ];
 
 function renderVideoGallery() {
